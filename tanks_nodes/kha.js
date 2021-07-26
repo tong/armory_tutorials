@@ -330,47 +330,110 @@ arm_node_FireTree.__name__ = true;
 arm_node_FireTree.__super__ = armory_logicnode_LogicTree;
 arm_node_FireTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _RemoveObject_001 = new armory_logicnode_RemoveObjectNode(this);
-		var _Sleep_001 = new armory_logicnode_SleepNode(this);
-		var _ArrayAdd = new armory_logicnode_ArrayAddNode(this);
-		var _ApplyImpulse = new armory_logicnode_ApplyImpulseNode(this);
-		var _SpawnObject = new armory_logicnode_SpawnObjectNode(this);
-		var _OnEvent = new armory_logicnode_OnEventNode(this);
-		_OnEvent.set_property0("");
-		_OnEvent.addOutputs([_SpawnObject]);
-		_SpawnObject.addInput(_OnEvent,0);
-		_SpawnObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		var _GetObjectTransform = new armory_logicnode_GetTransformNode(this);
-		_GetObjectTransform.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_GetObjectTransform.addOutputs([_SpawnObject]);
-		_SpawnObject.addInput(_GetObjectTransform,0);
-		_SpawnObject.addInput(new armory_logicnode_BooleanNode(this,true),0);
-		_SpawnObject.addOutputs([_ApplyImpulse]);
-		_SpawnObject.addOutputs([_ApplyImpulse,_ArrayAdd]);
-		_ApplyImpulse.addInput(_SpawnObject,0);
-		_ApplyImpulse.addInput(_SpawnObject,1);
-		_ApplyImpulse.addInput(new armory_logicnode_VectorNode(this,0.0,7.0,0.0),0);
-		_ApplyImpulse.addInput(new armory_logicnode_BooleanNode(this,true),0);
-		_ApplyImpulse.addOutputs([_ArrayAdd]);
-		_ArrayAdd.addInput(_ApplyImpulse,0);
-		var _ArrayObject = new armory_logicnode_ArrayObjectNode(this);
-		var _ArrayShift = new armory_logicnode_ArrayShiftNode(this);
-		_ArrayShift.addInput(_ArrayObject,0);
-		_ArrayShift.addOutputs([_RemoveObject_001]);
-		_ArrayObject.addOutputs([_ArrayAdd,_ArrayShift]);
-		_ArrayObject.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_ArrayAdd.addInput(_ArrayObject,0);
-		_ArrayAdd.addInput(new armory_logicnode_BooleanNode(this,false),0);
-		_ArrayAdd.addInput(new armory_logicnode_BooleanNode(this,true),0);
-		_ArrayAdd.addInput(_SpawnObject,1);
-		_ArrayAdd.addOutputs([_Sleep_001]);
-		_ArrayAdd.addOutputs([new armory_logicnode_NullNode(this)]);
-		_Sleep_001.addInput(_ArrayAdd,0);
-		_Sleep_001.addInput(new armory_logicnode_FloatNode(this,2.0),0);
-		_Sleep_001.addOutputs([_RemoveObject_001]);
-		_RemoveObject_001.addInput(_Sleep_001,0);
-		_RemoveObject_001.addInput(_ArrayShift,0);
-		_RemoveObject_001.addOutputs([new armory_logicnode_NullNode(this)]);
+		var _RemoveObject = new armory_logicnode_RemoveObjectNode(this);
+		_RemoveObject.inputs.length = 2;
+		_RemoveObject.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _RemoveObject.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_RemoveObject.outputs[i] = [];
+		}
+		var _Sleep = new armory_logicnode_SleepNode(this);
+		_Sleep.inputs.length = 2;
+		_Sleep.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _Sleep.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Sleep.outputs[i] = [];
+		}
+		var _ArrayAdd_001 = new armory_logicnode_ArrayAddNode(this);
+		_ArrayAdd_001.inputs.length = 5;
+		_ArrayAdd_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _ArrayAdd_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_ArrayAdd_001.outputs[i] = [];
+		}
+		var _ApplyImpulse_001 = new armory_logicnode_ApplyImpulseNode(this);
+		_ApplyImpulse_001.inputs.length = 4;
+		_ApplyImpulse_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _ApplyImpulse_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_ApplyImpulse_001.outputs[i] = [];
+		}
+		var _SpawnObject_001 = new armory_logicnode_SpawnObjectNode(this);
+		_SpawnObject_001.inputs.length = 4;
+		_SpawnObject_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _SpawnObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SpawnObject_001.outputs[i] = [];
+		}
+		var _OnEvent_001 = new armory_logicnode_OnEventNode(this);
+		_OnEvent_001.set_property0("");
+		_OnEvent_001.inputs.length = 0;
+		_OnEvent_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_OnEvent_001,_SpawnObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SpawnObject_001,0,1);
+		var _GetObjectTransform_001 = new armory_logicnode_GetTransformNode(this);
+		_GetObjectTransform_001.inputs.length = 1;
+		_GetObjectTransform_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _GetObjectTransform_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_GetObjectTransform_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_GetObjectTransform_001,0,0);
+		armory_logicnode_LogicNode.addLink(_GetObjectTransform_001,_SpawnObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_SpawnObject_001,0,3);
+		armory_logicnode_LogicNode.addLink(_SpawnObject_001,_ApplyImpulse_001,0,0);
+		armory_logicnode_LogicNode.addLink(_SpawnObject_001,_ApplyImpulse_001,1,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,7.0,0.0),_ApplyImpulse_001,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_ApplyImpulse_001,0,3);
+		armory_logicnode_LogicNode.addLink(_ApplyImpulse_001,_ArrayAdd_001,0,0);
+		var _ArrayObject_001 = new armory_logicnode_ArrayObjectNode(this);
+		_ArrayObject_001.inputs.length = 0;
+		_ArrayObject_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _ArrayObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_ArrayObject_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_ArrayObject_001,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_ArrayObject_001,_ArrayAdd_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,false),_ArrayAdd_001,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_ArrayAdd_001,0,3);
+		armory_logicnode_LogicNode.addLink(_SpawnObject_001,_ArrayAdd_001,1,4);
+		armory_logicnode_LogicNode.addLink(_ArrayAdd_001,new armory_logicnode_NullNode(this),1,0);
+		armory_logicnode_LogicNode.addLink(_ArrayAdd_001,_Sleep,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,2.0),_Sleep,0,1);
+		armory_logicnode_LogicNode.addLink(_Sleep,_RemoveObject,0,0);
+		var _ArrayShift_001 = new armory_logicnode_ArrayShiftNode(this);
+		_ArrayShift_001.inputs.length = 1;
+		_ArrayShift_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _ArrayShift_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_ArrayShift_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_ArrayObject_001,_ArrayShift_001,0,0);
+		armory_logicnode_LogicNode.addLink(_ArrayShift_001,_RemoveObject,0,1);
+		armory_logicnode_LogicNode.addLink(_RemoveObject,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_FireTree
 });
@@ -385,94 +448,210 @@ arm_node_Player1Controls.__name__ = true;
 arm_node_Player1Controls.__super__ = armory_logicnode_LogicTree;
 arm_node_Player1Controls.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
-		var _Merge_003 = new armory_logicnode_MergeNode(this);
-		_Merge_003.property0 = "once_per_input";
-		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_001.property0 = "down";
-		_Keyboard_001.property1 = "space";
-		_Keyboard_001.addOutputs([_Merge_003]);
-		_Keyboard_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_003.addInput(_Keyboard_001,0);
-		var _Gamepad_004 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_004.property0 = "down";
-		_Gamepad_004.property1 = "cross";
-		_Gamepad_004.addInput(new armory_logicnode_IntegerNode(this,0),0);
-		_Gamepad_004.addOutputs([_Merge_003]);
-		_Gamepad_004.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_003.addInput(_Gamepad_004,0);
-		_Merge_003.addOutputs([_SendEventtoObject]);
-		_Merge_003.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject.addInput(_Merge_003,0);
-		_SendEventtoObject.addInput(new armory_logicnode_StringNode(this,"turn_left"),0);
-		_SendEventtoObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
-		var _Merge_004 = new armory_logicnode_MergeNode(this);
-		_Merge_004.property0 = "once_per_input";
-		var _Keyboard_004 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_004.property0 = "down";
-		_Keyboard_004.property1 = "space";
-		_Keyboard_004.addOutputs([_Merge_004]);
-		_Keyboard_004.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_004.addInput(_Keyboard_004,0);
-		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad.property0 = "down";
-		_Gamepad.property1 = "cross";
-		_Gamepad.addInput(new armory_logicnode_IntegerNode(this,0),0);
-		_Gamepad.addOutputs([_Merge_004]);
-		_Gamepad.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_004.addInput(_Gamepad,0);
-		_Merge_004.addOutputs([_SendEventtoObject_001]);
-		_Merge_004.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_001.addInput(_Merge_004,0);
-		_SendEventtoObject_001.addInput(new armory_logicnode_StringNode(this,"forward"),0);
-		_SendEventtoObject_001.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_001.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_002 = new armory_logicnode_SendEventNode(this);
+		var _SendEventtoObject_004 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_004.inputs.length = 3;
+		_SendEventtoObject_004.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_004.outputs[i] = [];
+		}
 		var _Merge_002 = new armory_logicnode_MergeNode(this);
 		_Merge_002.property0 = "once_per_input";
+		_Merge_002.inputs.length = 2;
+		_Merge_002.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_002.outputs[i] = [];
+		}
 		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
 		_Keyboard.property0 = "down";
 		_Keyboard.property1 = "space";
-		_Keyboard.addOutputs([_Merge_002]);
-		_Keyboard.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_002.addInput(_Keyboard,0);
+		_Keyboard.inputs.length = 0;
+		_Keyboard.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_002,0,0);
+		var _Gamepad_003 = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad_003.property0 = "down";
+		_Gamepad_003.property1 = "cross";
+		_Gamepad_003.inputs.length = 1;
+		_Gamepad_003.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_003.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,0),_Gamepad_003,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_003,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_003,_Merge_002,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_002,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_002,_SendEventtoObject_004,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_left"),_SendEventtoObject_004,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_004,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_004,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject.inputs.length = 3;
+		_SendEventtoObject.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject.outputs[i] = [];
+		}
+		var _Merge_001 = new armory_logicnode_MergeNode(this);
+		_Merge_001.property0 = "once_per_input";
+		_Merge_001.inputs.length = 2;
+		_Merge_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_001.outputs[i] = [];
+		}
+		var _Keyboard_003 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_003.property0 = "down";
+		_Keyboard_003.property1 = "space";
+		_Keyboard_003.inputs.length = 0;
+		_Keyboard_003.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_003.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_003,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_003,_Merge_001,0,0);
 		var _Gamepad_002 = new armory_logicnode_MergedGamepadNode(this);
 		_Gamepad_002.property0 = "down";
 		_Gamepad_002.property1 = "cross";
-		_Gamepad_002.addInput(new armory_logicnode_IntegerNode(this,0),0);
-		_Gamepad_002.addOutputs([_Merge_002]);
-		_Gamepad_002.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_002.addInput(_Gamepad_002,0);
-		_Merge_002.addOutputs([_SendEventtoObject_002]);
-		_Merge_002.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_002.addInput(_Merge_002,0);
-		_SendEventtoObject_002.addInput(new armory_logicnode_StringNode(this,"backward"),0);
-		_SendEventtoObject_002.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_002.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_003 = new armory_logicnode_SendEventNode(this);
-		var _Merge = new armory_logicnode_MergeNode(this);
-		_Merge.property0 = "once_per_input";
-		var _Keyboard_002 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_002.property0 = "down";
-		_Keyboard_002.property1 = "space";
-		_Keyboard_002.addOutputs([_Merge]);
-		_Keyboard_002.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Keyboard_002,0);
+		_Gamepad_002.inputs.length = 1;
+		_Gamepad_002.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_002.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,0),_Gamepad_002,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_002,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_002,_Merge_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_001,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_001,_SendEventtoObject,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"forward"),_SendEventtoObject,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_001.inputs.length = 3;
+		_SendEventtoObject_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_001.outputs[i] = [];
+		}
+		var _Merge_004 = new armory_logicnode_MergeNode(this);
+		_Merge_004.property0 = "once_per_input";
+		_Merge_004.inputs.length = 2;
+		_Merge_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_004.outputs[i] = [];
+		}
+		var _Keyboard_004 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_004.property0 = "down";
+		_Keyboard_004.property1 = "space";
+		_Keyboard_004.inputs.length = 0;
+		_Keyboard_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_004,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_004,_Merge_004,0,0);
 		var _Gamepad_001 = new armory_logicnode_MergedGamepadNode(this);
 		_Gamepad_001.property0 = "down";
 		_Gamepad_001.property1 = "cross";
-		_Gamepad_001.addInput(new armory_logicnode_IntegerNode(this,0),0);
-		_Gamepad_001.addOutputs([_Merge]);
-		_Gamepad_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Gamepad_001,0);
-		_Merge.addOutputs([_SendEventtoObject_003]);
-		_Merge.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_003.addInput(_Merge,0);
-		_SendEventtoObject_003.addInput(new armory_logicnode_StringNode(this,"turn_right"),0);
-		_SendEventtoObject_003.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_003.addOutputs([new armory_logicnode_NullNode(this)]);
+		_Gamepad_001.inputs.length = 1;
+		_Gamepad_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,0),_Gamepad_001,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_001,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_001,_Merge_004,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_004,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_004,_SendEventtoObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"backward"),_SendEventtoObject_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_001,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject_002 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_002.inputs.length = 3;
+		_SendEventtoObject_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_002.outputs[i] = [];
+		}
+		var _Merge_003 = new armory_logicnode_MergeNode(this);
+		_Merge_003.property0 = "once_per_input";
+		_Merge_003.inputs.length = 2;
+		_Merge_003.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_003.outputs[i] = [];
+		}
+		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_001.property0 = "down";
+		_Keyboard_001.property1 = "space";
+		_Keyboard_001.inputs.length = 0;
+		_Keyboard_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_001,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_001,_Merge_003,0,0);
+		var _Gamepad_004 = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad_004.property0 = "down";
+		_Gamepad_004.property1 = "cross";
+		_Gamepad_004.inputs.length = 1;
+		_Gamepad_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,0),_Gamepad_004,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_004,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_004,_Merge_003,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_003,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_003,_SendEventtoObject_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_right"),_SendEventtoObject_002,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_002,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_002,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_Player1Controls
 });
@@ -487,28 +666,57 @@ arm_node_Player1Fire.__name__ = true;
 arm_node_Player1Fire.__super__ = armory_logicnode_LogicTree;
 arm_node_Player1Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
-		var _Merge = new armory_logicnode_MergeNode(this);
-		_Merge.property0 = "once_per_input";
-		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_001.property0 = "down";
-		_Keyboard_001.property1 = "space";
-		_Keyboard_001.addOutputs([_Merge]);
-		_Keyboard_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Keyboard_001,0);
-		var _Gamepad_001 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_001.property0 = "down";
-		_Gamepad_001.property1 = "cross";
-		_Gamepad_001.addInput(new armory_logicnode_IntegerNode(this,0),0);
-		_Gamepad_001.addOutputs([_Merge]);
-		_Gamepad_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Gamepad_001,0);
-		_Merge.addOutputs([_SendEventtoObject]);
-		_Merge.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject.addInput(_Merge,0);
-		_SendEventtoObject.addInput(new armory_logicnode_StringNode(this,"fire"),0);
-		_SendEventtoObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject.addOutputs([new armory_logicnode_NullNode(this)]);
+		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_001.inputs.length = 3;
+		_SendEventtoObject_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_001.outputs[i] = [];
+		}
+		var _Merge_001 = new armory_logicnode_MergeNode(this);
+		_Merge_001.property0 = "once_per_input";
+		_Merge_001.inputs.length = 2;
+		_Merge_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_001.outputs[i] = [];
+		}
+		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard.property0 = "down";
+		_Keyboard.property1 = "space";
+		_Keyboard.inputs.length = 0;
+		_Keyboard.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_001,0,0);
+		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad.property0 = "down";
+		_Gamepad.property1 = "cross";
+		_Gamepad.inputs.length = 1;
+		_Gamepad.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,0),_Gamepad,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,_Merge_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_001,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_001,_SendEventtoObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"fire"),_SendEventtoObject_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_001,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_Player1Fire
 });
@@ -523,94 +731,210 @@ arm_node_Player2Controls.__name__ = true;
 arm_node_Player2Controls.__super__ = armory_logicnode_LogicTree;
 arm_node_Player2Controls.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
-		var _Merge_003 = new armory_logicnode_MergeNode(this);
-		_Merge_003.property0 = "once_per_input";
-		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_001.property0 = "down";
-		_Keyboard_001.property1 = "space";
-		_Keyboard_001.addOutputs([_Merge_003]);
-		_Keyboard_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_003.addInput(_Keyboard_001,0);
-		var _Gamepad_004 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_004.property0 = "down";
-		_Gamepad_004.property1 = "cross";
-		_Gamepad_004.addInput(new armory_logicnode_IntegerNode(this,1),0);
-		_Gamepad_004.addOutputs([_Merge_003]);
-		_Gamepad_004.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_003.addInput(_Gamepad_004,0);
-		_Merge_003.addOutputs([_SendEventtoObject]);
-		_Merge_003.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject.addInput(_Merge_003,0);
-		_SendEventtoObject.addInput(new armory_logicnode_StringNode(this,"turn_left"),0);
-		_SendEventtoObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
-		var _Merge_004 = new armory_logicnode_MergeNode(this);
-		_Merge_004.property0 = "once_per_input";
-		var _Keyboard_004 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_004.property0 = "down";
-		_Keyboard_004.property1 = "space";
-		_Keyboard_004.addOutputs([_Merge_004]);
-		_Keyboard_004.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_004.addInput(_Keyboard_004,0);
-		var _Gamepad_002 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_002.property0 = "down";
-		_Gamepad_002.property1 = "cross";
-		_Gamepad_002.addInput(new armory_logicnode_IntegerNode(this,1),0);
-		_Gamepad_002.addOutputs([_Merge_004]);
-		_Gamepad_002.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_004.addInput(_Gamepad_002,0);
-		_Merge_004.addOutputs([_SendEventtoObject_001]);
-		_Merge_004.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_001.addInput(_Merge_004,0);
-		_SendEventtoObject_001.addInput(new armory_logicnode_StringNode(this,"forward"),0);
-		_SendEventtoObject_001.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_001.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_002 = new armory_logicnode_SendEventNode(this);
+		var _SendEventtoObject_004 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_004.inputs.length = 3;
+		_SendEventtoObject_004.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_004.outputs[i] = [];
+		}
 		var _Merge_002 = new armory_logicnode_MergeNode(this);
 		_Merge_002.property0 = "once_per_input";
+		_Merge_002.inputs.length = 2;
+		_Merge_002.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_002.outputs[i] = [];
+		}
 		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
 		_Keyboard.property0 = "down";
 		_Keyboard.property1 = "space";
-		_Keyboard.addOutputs([_Merge_002]);
-		_Keyboard.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_002.addInput(_Keyboard,0);
-		var _Gamepad_003 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_003.property0 = "down";
-		_Gamepad_003.property1 = "cross";
-		_Gamepad_003.addInput(new armory_logicnode_IntegerNode(this,1),0);
-		_Gamepad_003.addOutputs([_Merge_002]);
-		_Gamepad_003.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge_002.addInput(_Gamepad_003,0);
-		_Merge_002.addOutputs([_SendEventtoObject_002]);
-		_Merge_002.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_002.addInput(_Merge_002,0);
-		_SendEventtoObject_002.addInput(new armory_logicnode_StringNode(this,"backward"),0);
-		_SendEventtoObject_002.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_002.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _SendEventtoObject_003 = new armory_logicnode_SendEventNode(this);
-		var _Merge = new armory_logicnode_MergeNode(this);
-		_Merge.property0 = "once_per_input";
-		var _Keyboard_002 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_002.property0 = "down";
-		_Keyboard_002.property1 = "space";
-		_Keyboard_002.addOutputs([_Merge]);
-		_Keyboard_002.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Keyboard_002,0);
+		_Keyboard.inputs.length = 0;
+		_Keyboard.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_002,0,0);
+		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad.property0 = "down";
+		_Gamepad.property1 = "cross";
+		_Gamepad.inputs.length = 1;
+		_Gamepad.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,1),_Gamepad,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,_Merge_002,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_002,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_002,_SendEventtoObject_004,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_left"),_SendEventtoObject_004,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_004,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_004,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject.inputs.length = 3;
+		_SendEventtoObject.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject.outputs[i] = [];
+		}
+		var _Merge_001 = new armory_logicnode_MergeNode(this);
+		_Merge_001.property0 = "once_per_input";
+		_Merge_001.inputs.length = 2;
+		_Merge_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_001.outputs[i] = [];
+		}
+		var _Keyboard_003 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_003.property0 = "down";
+		_Keyboard_003.property1 = "space";
+		_Keyboard_003.inputs.length = 0;
+		_Keyboard_003.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_003.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_003,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_003,_Merge_001,0,0);
 		var _Gamepad_001 = new armory_logicnode_MergedGamepadNode(this);
 		_Gamepad_001.property0 = "down";
 		_Gamepad_001.property1 = "cross";
-		_Gamepad_001.addInput(new armory_logicnode_IntegerNode(this,1),0);
-		_Gamepad_001.addOutputs([_Merge]);
-		_Gamepad_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Gamepad_001,0);
-		_Merge.addOutputs([_SendEventtoObject_003]);
-		_Merge.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject_003.addInput(_Merge,0);
-		_SendEventtoObject_003.addInput(new armory_logicnode_StringNode(this,"turn_right"),0);
-		_SendEventtoObject_003.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject_003.addOutputs([new armory_logicnode_NullNode(this)]);
+		_Gamepad_001.inputs.length = 1;
+		_Gamepad_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,1),_Gamepad_001,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_001,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_001,_Merge_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_001,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_001,_SendEventtoObject,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"forward"),_SendEventtoObject,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_001.inputs.length = 3;
+		_SendEventtoObject_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_001.outputs[i] = [];
+		}
+		var _Merge_004 = new armory_logicnode_MergeNode(this);
+		_Merge_004.property0 = "once_per_input";
+		_Merge_004.inputs.length = 2;
+		_Merge_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_004.outputs[i] = [];
+		}
+		var _Keyboard_004 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_004.property0 = "down";
+		_Keyboard_004.property1 = "space";
+		_Keyboard_004.inputs.length = 0;
+		_Keyboard_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_004,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_004,_Merge_004,0,0);
+		var _Gamepad_002 = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad_002.property0 = "down";
+		_Gamepad_002.property1 = "cross";
+		_Gamepad_002.inputs.length = 1;
+		_Gamepad_002.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_002.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,1),_Gamepad_002,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_002,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_002,_Merge_004,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_004,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_004,_SendEventtoObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"backward"),_SendEventtoObject_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_001,new armory_logicnode_NullNode(this),0,0);
+		var _SendEventtoObject_002 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_002.inputs.length = 3;
+		_SendEventtoObject_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_002.outputs[i] = [];
+		}
+		var _Merge_003 = new armory_logicnode_MergeNode(this);
+		_Merge_003.property0 = "once_per_input";
+		_Merge_003.inputs.length = 2;
+		_Merge_003.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_003.outputs[i] = [];
+		}
+		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard_001.property0 = "down";
+		_Keyboard_001.property1 = "space";
+		_Keyboard_001.inputs.length = 0;
+		_Keyboard_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard_001,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard_001,_Merge_003,0,0);
+		var _Gamepad_004 = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad_004.property0 = "down";
+		_Gamepad_004.property1 = "cross";
+		_Gamepad_004.inputs.length = 1;
+		_Gamepad_004.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,1),_Gamepad_004,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_004,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad_004,_Merge_003,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_003,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_003,_SendEventtoObject_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_right"),_SendEventtoObject_002,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_002,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_002,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_Player2Controls
 });
@@ -625,28 +949,57 @@ arm_node_Player2Fire.__name__ = true;
 arm_node_Player2Fire.__super__ = armory_logicnode_LogicTree;
 arm_node_Player2Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _SendEventtoObject = new armory_logicnode_SendEventNode(this);
-		var _Merge = new armory_logicnode_MergeNode(this);
-		_Merge.property0 = "once_per_input";
-		var _Keyboard_001 = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard_001.property0 = "down";
-		_Keyboard_001.property1 = "space";
-		_Keyboard_001.addOutputs([_Merge]);
-		_Keyboard_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Keyboard_001,0);
-		var _Gamepad_001 = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad_001.property0 = "down";
-		_Gamepad_001.property1 = "cross";
-		_Gamepad_001.addInput(new armory_logicnode_IntegerNode(this,1),0);
-		_Gamepad_001.addOutputs([_Merge]);
-		_Gamepad_001.addOutputs([new armory_logicnode_BooleanNode(this,false)]);
-		_Merge.addInput(_Gamepad_001,0);
-		_Merge.addOutputs([_SendEventtoObject]);
-		_Merge.addOutputs([new armory_logicnode_IntegerNode(this,0)]);
-		_SendEventtoObject.addInput(_Merge,0);
-		_SendEventtoObject.addInput(new armory_logicnode_StringNode(this,"fire"),0);
-		_SendEventtoObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_SendEventtoObject.addOutputs([new armory_logicnode_NullNode(this)]);
+		var _SendEventtoObject_001 = new armory_logicnode_SendEventNode(this);
+		_SendEventtoObject_001.inputs.length = 3;
+		_SendEventtoObject_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _SendEventtoObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_SendEventtoObject_001.outputs[i] = [];
+		}
+		var _Merge_001 = new armory_logicnode_MergeNode(this);
+		_Merge_001.property0 = "once_per_input";
+		_Merge_001.inputs.length = 2;
+		_Merge_001.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Merge_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Merge_001.outputs[i] = [];
+		}
+		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
+		_Keyboard.property0 = "down";
+		_Keyboard.property1 = "space";
+		_Keyboard.inputs.length = 0;
+		_Keyboard.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Keyboard.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Keyboard.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_001,0,0);
+		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
+		_Gamepad.property0 = "down";
+		_Gamepad.property1 = "cross";
+		_Gamepad.inputs.length = 1;
+		_Gamepad.outputs.length = 2;
+		var _g = 0;
+		var _g1 = _Gamepad.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Gamepad.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_IntegerNode(this,1),_Gamepad,0,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,new armory_logicnode_BooleanNode(this,false),1,0);
+		armory_logicnode_LogicNode.addLink(_Gamepad,_Merge_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Merge_001,new armory_logicnode_IntegerNode(this,0),1,0);
+		armory_logicnode_LogicNode.addLink(_Merge_001,_SendEventtoObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"fire"),_SendEventtoObject_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SendEventtoObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(_SendEventtoObject_001,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_Player2Fire
 });
@@ -661,54 +1014,128 @@ arm_node_TankTree.__name__ = true;
 arm_node_TankTree.__super__ = armory_logicnode_LogicTree;
 arm_node_TankTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
+		var _RotateObject_001 = new armory_logicnode_RotateObjectNode(this);
+		_RotateObject_001.property0 = "Euler Angles";
+		_RotateObject_001.inputs.length = 4;
+		_RotateObject_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _RotateObject_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_RotateObject_001.outputs[i] = [];
+		}
+		var _OnEvent_002 = new armory_logicnode_OnEventNode(this);
+		_OnEvent_002.set_property0("");
+		_OnEvent_002.inputs.length = 0;
+		_OnEvent_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_002.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_OnEvent_002,_RotateObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject_001,0,1);
+		var _Vector_001 = new armory_logicnode_VectorNode(this);
+		_Vector_001.inputs.length = 3;
+		_Vector_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _Vector_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Vector_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.029999999329447746),_Vector_001,0,2);
+		armory_logicnode_LogicNode.addLink(_Vector_001,_RotateObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_RotateObject_001,0,3);
+		armory_logicnode_LogicNode.addLink(_RotateObject_001,new armory_logicnode_NullNode(this),0,0);
 		var _RotateObject_002 = new armory_logicnode_RotateObjectNode(this);
 		_RotateObject_002.property0 = "Euler Angles";
+		_RotateObject_002.inputs.length = 4;
+		_RotateObject_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _RotateObject_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_RotateObject_002.outputs[i] = [];
+		}
 		var _OnEvent_004 = new armory_logicnode_OnEventNode(this);
 		_OnEvent_004.set_property0("");
-		_OnEvent_004.addOutputs([_RotateObject_002]);
-		_RotateObject_002.addInput(_OnEvent_004,0);
-		_RotateObject_002.addInput(new armory_logicnode_ObjectNode(this,""),0);
+		_OnEvent_004.inputs.length = 0;
+		_OnEvent_004.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_OnEvent_004,_RotateObject_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject_002,0,1);
 		var _Vector_002 = new armory_logicnode_VectorNode(this);
-		_Vector_002.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_Vector_002.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_Vector_002.addInput(new armory_logicnode_FloatNode(this,0.029999999329447746),0);
-		_Vector_002.addOutputs([_RotateObject_002]);
-		_RotateObject_002.addInput(_Vector_002,0);
-		_RotateObject_002.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_RotateObject_002.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _RotateObject = new armory_logicnode_RotateObjectNode(this);
-		_RotateObject.property0 = "Euler Angles";
-		var _OnEvent = new armory_logicnode_OnEventNode(this);
-		_OnEvent.set_property0("");
-		_OnEvent.addOutputs([_RotateObject]);
-		_RotateObject.addInput(_OnEvent,0);
-		_RotateObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		var _Vector = new armory_logicnode_VectorNode(this);
-		_Vector.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_Vector.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_Vector.addInput(new armory_logicnode_FloatNode(this,-0.029999999329447746),0);
-		_Vector.addOutputs([_RotateObject]);
-		_RotateObject.addInput(_Vector,0);
-		_RotateObject.addInput(new armory_logicnode_FloatNode(this,0.0),0);
-		_RotateObject.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _TranslateObject = new armory_logicnode_TranslateObjectNode(this);
-		var _OnEvent_003 = new armory_logicnode_OnEventNode(this);
-		_OnEvent_003.set_property0("");
-		_OnEvent_003.addOutputs([_TranslateObject]);
-		_TranslateObject.addInput(_OnEvent_003,0);
-		_TranslateObject.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_TranslateObject.addInput(new armory_logicnode_VectorNode(this,0.0,0.05000000074505806,0.0),0);
-		_TranslateObject.addInput(new armory_logicnode_BooleanNode(this,true),0);
-		_TranslateObject.addOutputs([new armory_logicnode_NullNode(this)]);
-		var _TranslateObject_001 = new armory_logicnode_TranslateObjectNode(this);
+		_Vector_002.inputs.length = 3;
+		_Vector_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _Vector_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Vector_002.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_002,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,-0.029999999329447746),_Vector_002,0,2);
+		armory_logicnode_LogicNode.addLink(_Vector_002,_RotateObject_002,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_RotateObject_002,0,3);
+		armory_logicnode_LogicNode.addLink(_RotateObject_002,new armory_logicnode_NullNode(this),0,0);
+		var _TranslateObject_002 = new armory_logicnode_TranslateObjectNode(this);
+		_TranslateObject_002.inputs.length = 4;
+		_TranslateObject_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _TranslateObject_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_TranslateObject_002.outputs[i] = [];
+		}
 		var _OnEvent_001 = new armory_logicnode_OnEventNode(this);
 		_OnEvent_001.set_property0("");
-		_OnEvent_001.addOutputs([_TranslateObject_001]);
-		_TranslateObject_001.addInput(_OnEvent_001,0);
-		_TranslateObject_001.addInput(new armory_logicnode_ObjectNode(this,""),0);
-		_TranslateObject_001.addInput(new armory_logicnode_VectorNode(this,0.0,-0.05000000074505806,0.0),0);
-		_TranslateObject_001.addInput(new armory_logicnode_BooleanNode(this,true),0);
-		_TranslateObject_001.addOutputs([new armory_logicnode_NullNode(this)]);
+		_OnEvent_001.inputs.length = 0;
+		_OnEvent_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_OnEvent_001,_TranslateObject_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject_002,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,0.05000000074505806,0.0),_TranslateObject_002,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject_002,0,3);
+		armory_logicnode_LogicNode.addLink(_TranslateObject_002,new armory_logicnode_NullNode(this),0,0);
+		var _TranslateObject = new armory_logicnode_TranslateObjectNode(this);
+		_TranslateObject.inputs.length = 4;
+		_TranslateObject.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _TranslateObject.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_TranslateObject.outputs[i] = [];
+		}
+		var _OnEvent = new armory_logicnode_OnEventNode(this);
+		_OnEvent.set_property0("");
+		_OnEvent.inputs.length = 0;
+		_OnEvent.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(_OnEvent,_TranslateObject,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,-0.05000000074505806,0.0),_TranslateObject,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject,0,3);
+		armory_logicnode_LogicNode.addLink(_TranslateObject,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_TankTree
 });
@@ -722,14 +1149,28 @@ var armory_logicnode_LogicNode = function(tree) {
 };
 $hxClasses["armory.logicnode.LogicNode"] = armory_logicnode_LogicNode;
 armory_logicnode_LogicNode.__name__ = true;
+armory_logicnode_LogicNode.addLink = function(fromNode,toNode,fromIndex,toIndex) {
+	var link = new armory_logicnode_LogicNodeLink(fromNode,toNode,fromIndex,toIndex);
+	if(toNode.inputs.length <= toIndex) {
+		toNode.inputs.length = toIndex + 1;
+	}
+	toNode.inputs[toIndex] = link;
+	var fromNodeOuts = fromNode.outputs;
+	var outLen = fromNodeOuts.length;
+	if(outLen <= fromIndex) {
+		fromNodeOuts.length = fromIndex + 1;
+		var _g = outLen;
+		var _g1 = fromIndex + 1;
+		while(_g < _g1) {
+			var i = _g++;
+			fromNodeOuts[i] = [];
+		}
+	}
+	fromNodeOuts[fromIndex].push(link);
+	return link;
+};
 armory_logicnode_LogicNode.prototype = {
-	addInput: function(node,from) {
-		this.inputs.push(new armory_logicnode_LogicNodeInput(node,from));
-	}
-	,addOutputs: function(nodes) {
-		this.outputs.push(nodes);
-	}
-	,run: function(from) {
+	run: function(from) {
 	}
 	,runOutput: function(i) {
 		if(i >= this.outputs.length) {
@@ -738,19 +1179,9 @@ armory_logicnode_LogicNode.prototype = {
 		var _g = 0;
 		var _g1 = this.outputs[i];
 		while(_g < _g1.length) {
-			var output = _g1[_g];
+			var outLink = _g1[_g];
 			++_g;
-			var _g2 = 0;
-			var _g3 = output.inputs.length;
-			while(_g2 < _g3) {
-				var j = _g2++;
-				if(output.inputs[j].node == this) {
-					if(output.inputs[j].from == i) {
-						output.run(j);
-						break;
-					}
-				}
-			}
+			outLink.toNode.run(outLink.toIndex);
 		}
 	}
 	,get: function(from) {
@@ -766,9 +1197,17 @@ armory_logicnode_ApplyImpulseNode.__name__ = true;
 armory_logicnode_ApplyImpulseNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_ApplyImpulseNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var object = this.inputs[1].get();
-		var impulse = this.inputs[2].get();
-		var local = this.inputs.length > 3 && this.inputs[3].get();
+		var _this = this.inputs[1];
+		var object = _this.fromNode.get(_this.fromIndex);
+		var _this = this.inputs[2];
+		var impulse = _this.fromNode.get(_this.fromIndex);
+		var local;
+		if(this.inputs.length > 3) {
+			var _this = this.inputs[3];
+			local = _this.fromNode.get(_this.fromIndex);
+		} else {
+			local = false;
+		}
 		if(object == null || impulse == null) {
 			return;
 		}
@@ -847,11 +1286,13 @@ armory_logicnode_ArrayAddNode.__name__ = true;
 armory_logicnode_ArrayAddNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_ArrayAddNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		this.ar = this.inputs[1].get();
+		var _this = this.inputs[1];
+		this.ar = _this.fromNode.get(_this.fromIndex);
 		if(this.ar == null) {
 			return;
 		}
-		if(!this.inputs[2].get()) {
+		var _this = this.inputs[2];
+		if(!_this.fromNode.get(_this.fromIndex)) {
 			this.ar = this.ar.slice();
 		}
 		if(this.inputs.length > 4) {
@@ -859,8 +1300,10 @@ armory_logicnode_ArrayAddNode.prototype = $extend(armory_logicnode_LogicNode.pro
 			var _g1 = this.inputs.length;
 			while(_g < _g1) {
 				var i = _g++;
-				var value = this.inputs[i].get();
-				if(!this.inputs[3].get() || this.ar.indexOf(value) == -1) {
+				var _this = this.inputs[i];
+				var value = _this.fromNode.get(_this.fromIndex);
+				var _this1 = this.inputs[3];
+				if(!_this1.fromNode.get(_this1.fromIndex) || this.ar.indexOf(value) == -1) {
 					this.ar.push(value);
 				}
 			}
@@ -889,7 +1332,7 @@ armory_logicnode_ArrayObjectNode.prototype = $extend(armory_logicnode_LogicNode.
 			while(_g < _g1.length) {
 				var inp = _g1[_g];
 				++_g;
-				var val = inp.get();
+				var val = inp.fromNode.get(inp.fromIndex);
 				this.value.push(val);
 			}
 		}
@@ -909,7 +1352,8 @@ armory_logicnode_ArrayShiftNode.__name__ = true;
 armory_logicnode_ArrayShiftNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_ArrayShiftNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
-		var ar = this.inputs[0].get();
+		var _this = this.inputs[0];
+		var ar = _this.fromNode.get(_this.fromIndex);
 		if(ar == null) {
 			return null;
 		}
@@ -930,7 +1374,8 @@ armory_logicnode_BooleanNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_BooleanNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		if(this.inputs.length > 0) {
-			return this.inputs[0].get();
+			var _this = this.inputs[0];
+			return _this.fromNode.get(_this.fromIndex);
 		}
 		return this.value;
 	}
@@ -949,7 +1394,8 @@ armory_logicnode_FloatNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_FloatNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		if(this.inputs.length > 0) {
-			return this.inputs[0].get();
+			var _this = this.inputs[0];
+			return _this.fromNode.get(_this.fromIndex);
 		}
 		return this.value;
 	}
@@ -979,7 +1425,8 @@ armory_logicnode_FunctionOutputNode.__name__ = true;
 armory_logicnode_FunctionOutputNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_FunctionOutputNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		this.result = this.inputs[1].get();
+		var _this = this.inputs[1];
+		this.result = _this.fromNode.get(_this.fromIndex);
 		this.runOutput(0);
 	}
 	,__class__: armory_logicnode_FunctionOutputNode
@@ -992,7 +1439,8 @@ armory_logicnode_GetTransformNode.__name__ = true;
 armory_logicnode_GetTransformNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_GetTransformNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
-		var object = this.inputs[0].get();
+		var _this = this.inputs[0];
+		var object = _this.fromNode.get(_this.fromIndex);
 		if(object == null) {
 			return null;
 		}
@@ -1013,23 +1461,23 @@ armory_logicnode_IntegerNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_IntegerNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		if(this.inputs.length > 0) {
-			return this.inputs[0].get();
+			var _this = this.inputs[0];
+			return _this.fromNode.get(_this.fromIndex);
 		}
 		return this.value;
 	}
 	,__class__: armory_logicnode_IntegerNode
 });
-var armory_logicnode_LogicNodeInput = function(node,from) {
-	this.node = node;
-	this.from = from;
+var armory_logicnode_LogicNodeLink = function(fromNode,toNode,fromIndex,toIndex) {
+	this.fromNode = fromNode;
+	this.toNode = toNode;
+	this.fromIndex = fromIndex;
+	this.toIndex = toIndex;
 };
-$hxClasses["armory.logicnode.LogicNodeInput"] = armory_logicnode_LogicNodeInput;
-armory_logicnode_LogicNodeInput.__name__ = true;
-armory_logicnode_LogicNodeInput.prototype = {
-	get: function() {
-		return this.node.get(this.from);
-	}
-	,__class__: armory_logicnode_LogicNodeInput
+$hxClasses["armory.logicnode.LogicNodeLink"] = armory_logicnode_LogicNodeLink;
+armory_logicnode_LogicNodeLink.__name__ = true;
+armory_logicnode_LogicNodeLink.prototype = {
+	__class__: armory_logicnode_LogicNodeLink
 };
 var armory_logicnode_MergeNode = function(tree) {
 	this.lastInputIndex = -1;
@@ -1064,7 +1512,8 @@ armory_logicnode_MergedGamepadNode.__name__ = true;
 armory_logicnode_MergedGamepadNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_MergedGamepadNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	update: function() {
-		var num = this.inputs[0].get();
+		var _this = this.inputs[0];
+		var num = _this.fromNode.get(_this.fromIndex);
 		var gamepad = iron_system_Input.getGamepad(num);
 		if(gamepad == null) {
 			return;
@@ -1086,7 +1535,8 @@ armory_logicnode_MergedGamepadNode.prototype = $extend(armory_logicnode_LogicNod
 		}
 	}
 	,get: function(from) {
-		var num = this.inputs[0].get();
+		var _this = this.inputs[0];
+		var num = _this.fromNode.get(_this.fromIndex);
 		var gamepad = iron_system_Input.getGamepad(num);
 		switch(this.property0) {
 		case "down":
@@ -1166,7 +1616,8 @@ armory_logicnode_ObjectNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_ObjectNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		if(this.inputs.length > 0) {
-			return this.inputs[0].get();
+			var _this = this.inputs[0];
+			return _this.fromNode.get(_this.fromIndex);
 		}
 		if(this.value == null) {
 			this.value = this.objectName != "" ? iron_Scene.active.getChild(this.objectName) : this.tree.object;
@@ -1207,7 +1658,8 @@ armory_logicnode_RemoveObjectNode.__name__ = true;
 armory_logicnode_RemoveObjectNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_RemoveObjectNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var object = this.inputs[1].get();
+		var _this = this.inputs[1];
+		var object = _this.fromNode.get(_this.fromIndex);
 		if(object == null) {
 			return;
 		}
@@ -1226,14 +1678,17 @@ armory_logicnode_RotateObjectNode.__name__ = true;
 armory_logicnode_RotateObjectNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_RotateObjectNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var object = this.inputs[1].get();
-		var vec = this.inputs[2].get();
+		var _this = this.inputs[1];
+		var object = _this.fromNode.get(_this.fromIndex);
+		var _this = this.inputs[2];
+		var vec = _this.fromNode.get(_this.fromIndex);
 		if(object == null || vec == null) {
 			return;
 		}
 		switch(this.property0) {
 		case "Angle Axies (Degrees)":case "Angle Axies (Radians)":
-			var angle = this.inputs[3].get();
+			var _this = this.inputs[3];
+			var angle = _this.fromNode.get(_this.fromIndex);
 			if(this.property0 == "Angle Axies (Degrees)") {
 				angle *= Math.PI / 180;
 			}
@@ -1265,7 +1720,8 @@ armory_logicnode_RotateObjectNode.prototype = $extend(armory_logicnode_LogicNode
 			_this.w = c1 * c2 * c3 - s1 * s2 * s3;
 			break;
 		case "Quaternion":
-			this.q = new iron_math_Quat(vec.x,vec.y,vec.z,this.inputs[3].get());
+			var _this = this.inputs[3];
+			this.q = new iron_math_Quat(vec.x,vec.y,vec.z,_this.fromNode.get(_this.fromIndex));
 			var _this = this.q;
 			var l = Math.sqrt(_this.x * _this.x + _this.y * _this.y + _this.z * _this.z + _this.w * _this.w);
 			if(l == 0.0) {
@@ -1313,8 +1769,15 @@ armory_logicnode_SendEventNode.__name__ = true;
 armory_logicnode_SendEventNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_SendEventNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var name = this.inputs[1].get();
-		var object = this.inputs.length > 2 ? this.inputs[2].get() : this.tree.object;
+		var _this = this.inputs[1];
+		var name = _this.fromNode.get(_this.fromIndex);
+		var object;
+		if(this.inputs.length > 2) {
+			var _this = this.inputs[2];
+			object = _this.fromNode.get(_this.fromIndex);
+		} else {
+			object = this.tree.object;
+		}
 		if(object == null) {
 			return;
 		}
@@ -1342,7 +1805,8 @@ armory_logicnode_SleepNode.__name__ = true;
 armory_logicnode_SleepNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_SleepNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var time = this.inputs[1].get();
+		var _this = this.inputs[1];
+		var time = _this.fromNode.get(_this.fromIndex);
 		iron_system_Tween.timer(time,$bind(this,this.done));
 	}
 	,done: function() {
@@ -1360,7 +1824,8 @@ armory_logicnode_SpawnObjectNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_SpawnObjectNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
 		var _gthis = this;
-		var objectInput = this.inputs[1].get();
+		var _this = this.inputs[1];
+		var objectInput = _this.fromNode.get(_this.fromIndex);
 		if(objectInput == null) {
 			return;
 		}
@@ -1368,9 +1833,16 @@ armory_logicnode_SpawnObjectNode.prototype = $extend(armory_logicnode_LogicNode.
 		if(objectName == "") {
 			objectName = this.tree.object.name;
 		}
-		var m = this.inputs[2].get();
+		var _this = this.inputs[2];
+		var m = _this.fromNode.get(_this.fromIndex);
 		this.matrices.push(m != null ? new iron_math_Mat4(m.self._00,m.self._10,m.self._20,m.self._30,m.self._01,m.self._11,m.self._21,m.self._31,m.self._02,m.self._12,m.self._22,m.self._32,m.self._03,m.self._13,m.self._23,m.self._33) : null);
-		var spawnChildren = this.inputs.length > 3 ? this.inputs[3].get() : true;
+		var spawnChildren;
+		if(this.inputs.length > 3) {
+			var _this = this.inputs[3];
+			spawnChildren = _this.fromNode.get(_this.fromIndex);
+		} else {
+			spawnChildren = true;
+		}
 		iron_Scene.active.spawnObject(objectName,null,function(o) {
 			_gthis.object = o;
 			var matrix = _gthis.matrices.pop();
@@ -1404,7 +1876,8 @@ armory_logicnode_StringNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_StringNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		if(this.inputs.length > 0) {
-			return this.inputs[0].get();
+			var _this = this.inputs[0];
+			return _this.fromNode.get(_this.fromIndex);
 		}
 		return this.value;
 	}
@@ -1418,9 +1891,17 @@ armory_logicnode_TranslateObjectNode.__name__ = true;
 armory_logicnode_TranslateObjectNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_TranslateObjectNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	run: function(from) {
-		var object = this.inputs[1].get();
-		var vec = this.inputs[2].get();
-		var local = this.inputs.length > 3 && this.inputs[3].get();
+		var _this = this.inputs[1];
+		var object = _this.fromNode.get(_this.fromIndex);
+		var _this = this.inputs[2];
+		var vec = _this.fromNode.get(_this.fromIndex);
+		var local;
+		if(this.inputs.length > 3) {
+			var _this = this.inputs[3];
+			local = _this.fromNode.get(_this.fromIndex);
+		} else {
+			local = false;
+		}
 		if(object == null || vec == null) {
 			return;
 		}
@@ -1519,9 +2000,9 @@ var armory_logicnode_VectorNode = function(tree,x,y,z) {
 	this.value = new iron_math_Vec4();
 	armory_logicnode_LogicNode.call(this,tree);
 	if(x != null) {
-		this.addInput(new armory_logicnode_FloatNode(tree,x),0);
-		this.addInput(new armory_logicnode_FloatNode(tree,y),0);
-		this.addInput(new armory_logicnode_FloatNode(tree,z),0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(tree,x),this,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(tree,y),this,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(tree,z),this,0,2);
 	}
 };
 $hxClasses["armory.logicnode.VectorNode"] = armory_logicnode_VectorNode;
@@ -1530,9 +2011,15 @@ armory_logicnode_VectorNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_VectorNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
 	get: function(from) {
 		this.value = new iron_math_Vec4();
-		this.value.x = this.inputs[0].get();
-		this.value.y = this.inputs[1].get();
-		this.value.z = this.inputs[2].get();
+		var _this = this.inputs[0];
+		var tmp = _this.fromNode.get(_this.fromIndex);
+		this.value.x = tmp;
+		var _this = this.inputs[1];
+		var tmp = _this.fromNode.get(_this.fromIndex);
+		this.value.y = tmp;
+		var _this = this.inputs[2];
+		var tmp = _this.fromNode.get(_this.fromIndex);
+		this.value.z = tmp;
 		return this.value;
 	}
 	,__class__: armory_logicnode_VectorNode
