@@ -331,46 +331,35 @@ arm_node_MoveCylinder.__name__ = true;
 arm_node_MoveCylinder.__super__ = armory_logicnode_LogicTree;
 arm_node_MoveCylinder.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _SetObjectLocation_001 = new armory_logicnode_SetLocationNode(this);
-		_SetObjectLocation_001.inputs.length = 4;
-		_SetObjectLocation_001.outputs.length = 1;
+		var _SetObjectLocation = new armory_logicnode_SetLocationNode(this);
+		_SetObjectLocation.inputs.length = 4;
+		_SetObjectLocation.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _SetObjectLocation_001.outputs.length;
+		var _g1 = _SetObjectLocation.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_SetObjectLocation_001.outputs[i] = [];
+			_SetObjectLocation.outputs[i] = [];
 		}
-		var _OnUpdate = new armory_logicnode_OnUpdateNode(this);
-		_OnUpdate.property0 = "Update";
-		_OnUpdate.inputs.length = 0;
-		_OnUpdate.outputs.length = 1;
+		var _OnUpdate_001 = new armory_logicnode_OnUpdateNode(this);
+		_OnUpdate_001.property0 = "Update";
+		_OnUpdate_001.inputs.length = 0;
+		_OnUpdate_001.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _OnUpdate.outputs.length;
+		var _g1 = _OnUpdate_001.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_OnUpdate.outputs[i] = [];
+			_OnUpdate_001.outputs[i] = [];
 		}
-		armory_logicnode_LogicNode.addLink(_OnUpdate,_SetObjectLocation_001,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SetObjectLocation_001,0,1);
-		var _Vector = new armory_logicnode_VectorNode(this);
-		_Vector.inputs.length = 3;
-		_Vector.outputs.length = 1;
+		armory_logicnode_LogicNode.addLink(_OnUpdate_001,_SetObjectLocation,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_SetObjectLocation,0,1);
+		var _Vector_001 = new armory_logicnode_VectorNode(this);
+		_Vector_001.inputs.length = 3;
+		_Vector_001.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _Vector.outputs.length;
+		var _g1 = _Vector_001.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_Vector.outputs[i] = [];
-		}
-		var _Math_002 = new armory_logicnode_MathNode(this);
-		_Math_002.property0 = "Add";
-		_Math_002.property1 = false;
-		_Math_002.inputs.length = 2;
-		_Math_002.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _Math_002.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_Math_002.outputs[i] = [];
+			_Vector_001.outputs[i] = [];
 		}
 		var _Math_001 = new armory_logicnode_MathNode(this);
 		_Math_001.property0 = "Add";
@@ -383,48 +372,59 @@ arm_node_MoveCylinder.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			var i = _g++;
 			_Math_001.outputs[i] = [];
 		}
-		var _GetApplicationTime_001 = new armory_logicnode_TimeNode(this);
-		_GetApplicationTime_001.inputs.length = 0;
-		_GetApplicationTime_001.outputs.length = 2;
+		var _Math = new armory_logicnode_MathNode(this);
+		_Math.property0 = "Add";
+		_Math.property1 = false;
+		_Math.inputs.length = 2;
+		_Math.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _GetApplicationTime_001.outputs.length;
+		var _g1 = _Math.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_GetApplicationTime_001.outputs[i] = [];
+			_Math.outputs[i] = [];
 		}
-		armory_logicnode_LogicNode.addLink(_GetApplicationTime_001,new armory_logicnode_FloatNode(this,0.0),1,0);
-		armory_logicnode_LogicNode.addLink(_GetApplicationTime_001,_Math_001,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.5),_Math_001,0,1);
-		armory_logicnode_LogicNode.addLink(_Math_001,_Math_002,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,4.0),_Math_002,0,1);
-		armory_logicnode_LogicNode.addLink(_Math_002,_Vector,0,0);
-		var _SeparateXYZ = new armory_logicnode_SeparateVectorNode(this);
-		_SeparateXYZ.inputs.length = 1;
-		_SeparateXYZ.outputs.length = 3;
+		var _GetApplicationTime = new armory_logicnode_TimeNode(this);
+		_GetApplicationTime.inputs.length = 0;
+		_GetApplicationTime.outputs.length = 2;
 		var _g = 0;
-		var _g1 = _SeparateXYZ.outputs.length;
+		var _g1 = _GetApplicationTime.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_SeparateXYZ.outputs[i] = [];
+			_GetApplicationTime.outputs[i] = [];
 		}
-		var _GetObjectLocation_001 = new armory_logicnode_GetLocationNode(this);
-		_GetObjectLocation_001.inputs.length = 2;
-		_GetObjectLocation_001.outputs.length = 1;
+		armory_logicnode_LogicNode.addLink(_GetApplicationTime,new armory_logicnode_FloatNode(this,0.0),1,0);
+		armory_logicnode_LogicNode.addLink(_GetApplicationTime,_Math,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.5),_Math,0,1);
+		armory_logicnode_LogicNode.addLink(_Math,_Math_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,4.0),_Math_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Math_001,_Vector_001,0,0);
+		var _SeparateXYZ_001 = new armory_logicnode_SeparateVectorNode(this);
+		_SeparateXYZ_001.inputs.length = 1;
+		_SeparateXYZ_001.outputs.length = 3;
 		var _g = 0;
-		var _g1 = _GetObjectLocation_001.outputs.length;
+		var _g1 = _SeparateXYZ_001.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_GetObjectLocation_001.outputs[i] = [];
+			_SeparateXYZ_001.outputs[i] = [];
 		}
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_GetObjectLocation_001,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,false),_GetObjectLocation_001,0,1);
-		armory_logicnode_LogicNode.addLink(_GetObjectLocation_001,_SeparateXYZ,0,0);
-		armory_logicnode_LogicNode.addLink(_SeparateXYZ,new armory_logicnode_FloatNode(this,0.0),0,0);
-		armory_logicnode_LogicNode.addLink(_SeparateXYZ,_Vector,1,1);
-		armory_logicnode_LogicNode.addLink(_SeparateXYZ,_Vector,2,2);
-		armory_logicnode_LogicNode.addLink(_Vector,_SetObjectLocation_001,0,2);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,false),_SetObjectLocation_001,0,3);
-		armory_logicnode_LogicNode.addLink(_SetObjectLocation_001,new armory_logicnode_NullNode(this),0,0);
+		var _GetObjectLocation = new armory_logicnode_GetLocationNode(this);
+		_GetObjectLocation.inputs.length = 2;
+		_GetObjectLocation.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _GetObjectLocation.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_GetObjectLocation.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_GetObjectLocation,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,false),_GetObjectLocation,0,1);
+		armory_logicnode_LogicNode.addLink(_GetObjectLocation,_SeparateXYZ_001,0,0);
+		armory_logicnode_LogicNode.addLink(_SeparateXYZ_001,new armory_logicnode_FloatNode(this,0.0),0,0);
+		armory_logicnode_LogicNode.addLink(_SeparateXYZ_001,_Vector_001,1,1);
+		armory_logicnode_LogicNode.addLink(_SeparateXYZ_001,_Vector_001,2,2);
+		armory_logicnode_LogicNode.addLink(_Vector_001,_SetObjectLocation,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,false),_SetObjectLocation,0,3);
+		armory_logicnode_LogicNode.addLink(_SetObjectLocation,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_MoveCylinder
 });
@@ -1953,6 +1953,10 @@ iron_math_Mat4.prototype = {
 var armory_trait_PhysicsDrag = function() {
 	this.pickedBody = null;
 	this.pickConstraint = null;
+	this.angularUpperLimit = new iron_math_Vec3(10,10,10);
+	this.angularLowerLimit = new iron_math_Vec3(-10,-10,-10);
+	this.linearUpperLimit = new iron_math_Vec3(0,0,0);
+	this.linearLowerLimit = new iron_math_Vec3(0,0,0);
 	iron_Trait.call(this);
 	if(armory_trait_PhysicsDrag.first) {
 		armory_trait_PhysicsDrag.first = false;
@@ -2087,10 +2091,10 @@ armory_trait_PhysicsDrag.prototype = $extend(iron_Trait.prototype,{
 				tr.setIdentity();
 				tr.setOrigin(localPivot);
 				this.pickConstraint = new Ammo.btGeneric6DofConstraint(b.body,tr,false);
-				this.pickConstraint.setLinearLowerLimit(new Ammo.btVector3(0,0,0));
-				this.pickConstraint.setLinearUpperLimit(new Ammo.btVector3(0,0,0));
-				this.pickConstraint.setAngularLowerLimit(new Ammo.btVector3(-10,-10,-10));
-				this.pickConstraint.setAngularUpperLimit(new Ammo.btVector3(10,10,10));
+				this.pickConstraint.setLinearLowerLimit(new Ammo.btVector3(this.linearLowerLimit.x,this.linearLowerLimit.y,this.linearLowerLimit.z));
+				this.pickConstraint.setLinearUpperLimit(new Ammo.btVector3(this.linearUpperLimit.x,this.linearUpperLimit.y,this.linearUpperLimit.z));
+				this.pickConstraint.setAngularLowerLimit(new Ammo.btVector3(this.angularLowerLimit.x,this.angularLowerLimit.y,this.angularLowerLimit.z));
+				this.pickConstraint.setAngularUpperLimit(new Ammo.btVector3(this.angularUpperLimit.x,this.angularUpperLimit.y,this.angularUpperLimit.z));
 				physics.world.addConstraint(this.pickConstraint,false);
 				var _this = armory_trait_PhysicsDrag.v;
 				var x = hit.x - this.rayFrom.x();
@@ -2198,13 +2202,13 @@ var armory_trait_internal_CanvasScript = function(canvasName,font) {
 			if(armory_ui_Canvas.themes.length == 0) {
 				armory_ui_Canvas.themes.push(armory_ui_Themes.light);
 			}
-			iron_data_Data.getFont(font,function(f) {
+			iron_data_Data.getFont(font,function(defaultFont) {
 				var c = JSON.parse(blob.toString());
 				if(c.theme == null) {
 					c.theme = armory_ui_Canvas.themes[0].NAME;
 				}
 				var tmp = armory_ui_Canvas.getTheme(c.theme);
-				_gthis.cui = new zui_Zui({ font : f, theme : tmp});
+				_gthis.cui = new zui_Zui({ font : defaultFont, theme : tmp});
 				if(c.assets == null || c.assets.length == 0) {
 					_gthis.canvas = c;
 				} else {
@@ -2215,14 +2219,25 @@ var armory_trait_internal_CanvasScript = function(canvasName,font) {
 						var asset = [_g1[_g]];
 						++_g;
 						var file = asset[0].name;
-						iron_data_Data.getImage(file,(function(asset) {
-							return function(image) {
-								armory_ui_Canvas.assetMap.h[asset[0].id] = image;
-								if((loaded += 1) >= c.assets.length) {
-									_gthis.canvas = c;
-								}
-							};
-						})(asset));
+						if(file != null && StringTools.endsWith(file.toLowerCase(),".ttf")) {
+							iron_data_Data.getFont(file,(function(asset) {
+								return function(f) {
+									armory_ui_Canvas.assetMap.h[asset[0].id] = f;
+									if((loaded += 1) >= c.assets.length) {
+										_gthis.canvas = c;
+									}
+								};
+							})(asset));
+						} else {
+							iron_data_Data.getImage(file,(function(asset) {
+								return function(image) {
+									armory_ui_Canvas.assetMap.h[asset[0].id] = image;
+									if((loaded += 1) >= c.assets.length) {
+										_gthis.canvas = c;
+									}
+								};
+							})(asset));
+						}
 					}
 				}
 			});
@@ -2402,11 +2417,15 @@ armory_trait_internal_UniformsManager.registerShaderUniforms = function(material
 			if(texture[0].is_arm_parameter) {
 				uniformExist = true;
 				var object1 = [iron_Scene.active.root];
-				iron_data_Data.getImage(texture[0].default_image_file,(function(object,texture) {
-					return function(image) {
-						armory_trait_internal_UniformsManager.setTextureValue(material,object[0],texture[0].link,image);
-					};
-				})(object1,texture));
+				if(texture[0].default_image_file == null) {
+					armory_trait_internal_UniformsManager.setTextureValue(material,object1[0],texture[0].link,null);
+				} else {
+					iron_data_Data.getImage(texture[0].default_image_file,(function(object,texture) {
+						return function(image) {
+							armory_trait_internal_UniformsManager.setTextureValue(material,object[0],texture[0].link,image);
+						};
+					})(object1,texture));
+				}
 				armory_trait_internal_UniformsManager.register(2);
 			}
 		}
@@ -39782,6 +39801,8 @@ zui_Zui.prototype = {
 			if(selected && !this.tabVertical) {
 				this.g.set_color(this.t.WINDOW_BG_COL);
 				this.g.fillRect(this._x + this.buttonOffsetY + 1,this._y + this.buttonOffsetY + tabH,this._w - 1,1);
+				this.g.set_color(this.t.HIGHLIGHT_COL);
+				this.g.fillRect(this._x + this.buttonOffsetY + 1,this._y + this.buttonOffsetY,this._w - 1,2);
 			}
 		}
 		this._x = 0;
@@ -40021,7 +40042,7 @@ zui_Zui.prototype = {
 				this.highlightAnchor = this.cursorX;
 			}
 		}
-		if(zui_Zui.textToPaste != "") {
+		if(editable && zui_Zui.textToPaste != "") {
 			text = HxOverrides.substr(text,0,this.highlightAnchor) + zui_Zui.textToPaste + HxOverrides.substr(text,this.cursorX,null);
 			this.cursorX += zui_Zui.textToPaste.length;
 			this.highlightAnchor = this.cursorX;
@@ -40035,7 +40056,7 @@ zui_Zui.prototype = {
 		} else {
 			zui_Zui.textToCopy = text.substring(this.cursorX,this.highlightAnchor);
 		}
-		if(zui_Zui.isCut) {
+		if(editable && zui_Zui.isCut) {
 			if(this.highlightAnchor == this.cursorX) {
 				text = "";
 			} else if(this.highlightAnchor < this.cursorX) {
@@ -41005,6 +41026,7 @@ armory_renderpath_RenderPathCreator.drawMeshes = armory_renderpath_RenderPathDef
 armory_system_Event.events = new haxe_ds_StringMap();
 iron_math_Mat4.helpVec = new iron_math_Vec4();
 iron_math_Mat4.helpMat = new iron_math_Mat4(1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0);
+armory_trait_PhysicsDrag.__meta__ = { fields : { linearLowerLimit : { prop : null}, linearUpperLimit : { prop : null}, angularLowerLimit : { prop : null}, angularUpperLimit : { prop : null}}};
 armory_trait_PhysicsDrag.v = new iron_math_Vec4();
 armory_trait_PhysicsDrag.m = new iron_math_Mat4(1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0);
 armory_trait_PhysicsDrag.first = true;
@@ -41233,7 +41255,7 @@ kha_internal_HdrFormat.formatPattern = new EReg("FORMAT=32-bit_rle_rgbe","i");
 kha_internal_HdrFormat.widthHeightPattern = new EReg("-Y ([0-9]+) \\+X ([0-9]+)","i");
 kha_js_Sound.loading = [];
 kha_netsync_ControllerBuilder.nextId = 0;
-zui_Themes.dark = { NAME : "Default Dark", WINDOW_BG_COL : -13421773, WINDOW_TINT_COL : -1, ACCENT_COL : -12303292, ACCENT_HOVER_COL : -11974327, ACCENT_SELECT_COL : -10461088, BUTTON_COL : -12171706, BUTTON_TEXT_COL : -1513499, BUTTON_HOVER_COL : -11974327, BUTTON_PRESSED_COL : -15000805, TEXT_COL : -1513499, LABEL_COL : -3618616, SEPARATOR_COL : -14211289, HIGHLIGHT_COL : -14656100, CONTEXT_COL : -14540254, PANEL_BG_COL : -12895429, FONT_SIZE : 13, ELEMENT_W : 100, ELEMENT_H : 24, ELEMENT_OFFSET : 4, ARROW_SIZE : 5, BUTTON_H : 22, CHECK_SIZE : 15, CHECK_SELECT_SIZE : 8, SCROLL_W : 6, TEXT_OFFSET : 8, TAB_W : 6, FILL_WINDOW_BG : false, FILL_BUTTON_BG : true, FILL_ACCENT_BG : false, LINK_STYLE : 0, FULL_TABS : false};
+zui_Themes.dark = { NAME : "Default Dark", WINDOW_BG_COL : -14079703, WINDOW_TINT_COL : -1, ACCENT_COL : -13027015, ACCENT_HOVER_COL : -12369085, ACCENT_SELECT_COL : -11513776, BUTTON_COL : -13092808, BUTTON_TEXT_COL : -1513499, BUTTON_HOVER_COL : -11974327, BUTTON_PRESSED_COL : -15000805, TEXT_COL : -1513499, LABEL_COL : -3618616, SEPARATOR_COL : -14671840, HIGHLIGHT_COL : -14656100, CONTEXT_COL : -14540254, PANEL_BG_COL : -12895429, FONT_SIZE : 13, ELEMENT_W : 100, ELEMENT_H : 24, ELEMENT_OFFSET : 4, ARROW_SIZE : 5, BUTTON_H : 22, CHECK_SIZE : 15, CHECK_SELECT_SIZE : 8, SCROLL_W : 6, TEXT_OFFSET : 8, TAB_W : 6, FILL_WINDOW_BG : false, FILL_BUTTON_BG : true, FILL_ACCENT_BG : false, LINK_STYLE : 0, FULL_TABS : false};
 zui_Zui.alwaysRedrawWindow = true;
 zui_Zui.keyRepeat = true;
 zui_Zui.dynamicGlyphLoad = true;
