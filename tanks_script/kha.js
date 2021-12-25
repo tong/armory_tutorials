@@ -389,7 +389,7 @@ var arm_Player1Fire = function() {
 	this.notifyOnUpdate(function() {
 		var keyboard = iron_system_Input.getKeyboard();
 		var gamepad = iron_system_Input.getGamepad(0);
-		if(keyboard.started("m") || gamepad.started("cross")) {
+		if(keyboard.started("space") || gamepad.started("cross")) {
 			_gthis.object.getTrait(arm_FireTrait).fire();
 		}
 	});
@@ -675,7 +675,12 @@ armory_object_Uniforms.register = function() {
 	iron_object_Uniforms.externalIntLinks = [];
 };
 armory_object_Uniforms.textureLink = function(object,mat,link) {
-	if(link == "_nishitaLUT") {
+	switch(link) {
+	case "_morphDataNor":
+		return (js_Boot.__cast(object , iron_object_MeshObject)).morphTarget.morphDataNor;
+	case "_morphDataPos":
+		return (js_Boot.__cast(object , iron_object_MeshObject)).morphTarget.morphDataPos;
+	case "_nishitaLUT":
 		if(armory_renderpath_Nishita.data == null) {
 			armory_renderpath_Nishita.recompute(iron_Scene.active.world);
 		}
@@ -1914,14 +1919,16 @@ armory_trait_internal_UniformsManager.removeObjectFromMap = function(object,type
 armory_trait_internal_UniformsManager.__super__ = iron_Trait;
 armory_trait_internal_UniformsManager.prototype = $extend(iron_Trait.prototype,{
 	init: function() {
-		var materials = (js_Boot.__cast(this.object , iron_object_MeshObject)).materials;
-		var _g = 0;
-		while(_g < materials.length) {
-			var material = materials[_g];
-			++_g;
-			var exists = armory_trait_internal_UniformsManager.registerShaderUniforms(material);
-			if(exists) {
-				this.uniformExists = true;
+		if(((this.object) instanceof iron_object_MeshObject)) {
+			var materials = (js_Boot.__cast(this.object , iron_object_MeshObject)).materials;
+			var _g = 0;
+			while(_g < materials.length) {
+				var material = materials[_g];
+				++_g;
+				var exists = armory_trait_internal_UniformsManager.registerShaderUniforms(material);
+				if(exists) {
+					this.uniformExists = true;
+				}
 			}
 		}
 	}
@@ -2938,16 +2945,15 @@ armory_trait_physics_bullet_PhysicsWorld.prototype = $extend(iron_Trait.prototyp
 			var body11 = contactManifold.getBody1();
 			var body12 = body1.upcast(body11);
 			var numContacts = contactManifold.getNumContacts();
-			var pt = null;
-			var posA = null;
-			var posB = null;
-			var nor = null;
-			var cp = null;
 			var _g2 = 0;
 			var _g3 = numContacts;
 			while(_g2 < _g3) {
 				var j = _g2++;
-				pt = contactManifold.getContactPoint(j);
+				var pt = contactManifold.getContactPoint(j);
+				var posA = null;
+				var posB = null;
+				var nor = null;
+				var cp = null;
 				posA = pt.get_m_positionWorldOnA();
 				posB = pt.get_m_positionWorldOnB();
 				nor = pt.get_m_normalWorldOnB();
@@ -3366,11 +3372,9 @@ armory_trait_physics_bullet_RigidBody.prototype = $extend(iron_Trait.prototype,{
 		if(this.animated) {
 			this.syncTransform();
 		} else {
-			var bodyColl = this.body;
-			var trans = bodyColl.getWorldTransform();
+			var trans = this.body.getWorldTransform();
 			var p = trans.getOrigin();
 			var q = trans.getRotation();
-			var qw = q;
 			var _this = this.transform.loc;
 			var x = p.x();
 			var y = p.y();
@@ -3380,10 +3384,10 @@ armory_trait_physics_bullet_RigidBody.prototype = $extend(iron_Trait.prototype,{
 			_this.z = z;
 			_this.w = 1.0;
 			var _this = this.transform.rot;
-			var x = qw.x();
-			var y = qw.y();
-			var z = qw.z();
-			var w = qw.w();
+			var x = q.x();
+			var y = q.y();
+			var z = q.z();
+			var w = q.w();
 			_this.x = x;
 			_this.y = y;
 			_this.z = z;
@@ -5931,7 +5935,7 @@ iron_Scene.createTraits = function(traits,object) {
 			}
 			var traitInst = iron_Scene.createTraitClassInstance(t.class_name,args);
 			if(traitInst == null) {
-				haxe_Log.trace("Error: Trait '" + t.class_name + "' referenced in object '" + object.name + "' not found",{ fileName : "Sources/iron/Scene.hx", lineNumber : 859, className : "iron.Scene", methodName : "createTraits"});
+				haxe_Log.trace("Error: Trait '" + t.class_name + "' referenced in object '" + object.name + "' not found",{ fileName : "Sources/iron/Scene.hx", lineNumber : 862, className : "iron.Scene", methodName : "createTraits"});
 				continue;
 			}
 			if(t.props != null) {
@@ -6545,6 +6549,7 @@ iron_Scene.prototype = {
 			iron_Scene.createConstraints(o.constraints,object);
 			iron_Scene.generateTransform(o,object.transform);
 			object.setupAnimation(oactions);
+			object.setupMorphTargets();
 			if(o.properties != null) {
 				object.properties = new haxe_ds_StringMap();
 				var _g = 0;
@@ -7481,10 +7486,10 @@ iron_data_Geometry.prototype = {
 			vb.unlock();
 			this.vertexBufferMap.h[key] = vb;
 			if(atex && this.uvs == null) {
-				haxe_Log.trace("Armory Warning: Geometry " + this.name + " is missing UV map",{ fileName : "Sources/iron/data/Geometry.hx", lineNumber : 237, className : "iron.data.Geometry", methodName : "get"});
+				haxe_Log.trace("Armory Warning: Geometry " + this.name + " is missing UV map",{ fileName : "Sources/iron/data/Geometry.hx", lineNumber : 234, className : "iron.data.Geometry", methodName : "get"});
 			}
 			if(acol && this.cols == null) {
-				haxe_Log.trace("Armory Warning: Geometry " + this.name + " is missing vertex colors",{ fileName : "Sources/iron/data/Geometry.hx", lineNumber : 238, className : "iron.data.Geometry", methodName : "get"});
+				haxe_Log.trace("Armory Warning: Geometry " + this.name + " is missing vertex colors",{ fileName : "Sources/iron/data/Geometry.hx", lineNumber : 235, className : "iron.data.Geometry", methodName : "get"});
 			}
 		}
 		return vb;
@@ -8783,11 +8788,13 @@ iron_object_Animation.prototype = {
 				var i = _g++;
 				if(this.frameIndex == anim.marker_frames.getUint32(i * 4,kha_arrays_ByteArray.LITTLE_ENDIAN)) {
 					var ar = this.markerEvents.h[anim.marker_names[i]];
-					var _g2 = 0;
-					while(_g2 < ar.length) {
-						var f = ar[_g2];
-						++_g2;
-						f();
+					if(ar != null) {
+						var _g2 = 0;
+						while(_g2 < ar.length) {
+							var f = ar[_g2];
+							++_g2;
+							f();
+						}
 					}
 				}
 			}
@@ -10903,6 +10910,8 @@ iron_object_Object.prototype = {
 		}
 		this.animation = new iron_object_ObjectAnimation(this,oactions);
 	}
+	,setupMorphTargets: function() {
+	}
 	,__class__: iron_object_Object
 };
 var iron_object_CameraObject = function(data) {
@@ -12355,6 +12364,7 @@ iron_object_LightObject.prototype = $extend(iron_object_Object.prototype,{
 	,__class__: iron_object_LightObject
 });
 var iron_object_MeshObject = function(data,materials) {
+	this.morphTarget = null;
 	this.force_context = null;
 	this.skip_context = null;
 	this.tilesheet = null;
@@ -12424,6 +12434,11 @@ iron_object_MeshObject.prototype = $extend(iron_object_Object.prototype,{
 			}
 		}
 		iron_object_Object.prototype.setupAnimation.call(this,oactions);
+	}
+	,setupMorphTargets: function() {
+		if(this.data.raw.morph_target != null) {
+			this.morphTarget = new iron_object_MorphTarget(this.data.raw.morph_target);
+		}
 	}
 	,setupParticleSystem: function(sceneName,pref) {
 		if(this.particleSystems == null) {
@@ -12679,6 +12694,44 @@ iron_object_MeshObject.prototype = $extend(iron_object_Object.prototype,{
 	}
 	,__class__: iron_object_MeshObject
 });
+var iron_object_MorphTarget = function(data) {
+	this.morphMap = null;
+	this.morphBlockSize = 0;
+	this.morphImageSize = 0;
+	this.numMorphTargets = 0;
+	var _gthis = this;
+	this.morphWeights = data.morph_target_defaults;
+	this.scaling = data.morph_scale;
+	this.offset = data.morph_offset;
+	this.numMorphTargets = data.num_morph_targets;
+	this.morphImageSize = data.morph_img_size;
+	this.morphBlockSize = data.morph_block_size;
+	iron_data_Data.getImage(data.morph_target_data_file + "_morph_pos.png",function(img) {
+		if(img != null) {
+			_gthis.morphDataPos = img;
+		}
+	});
+	iron_data_Data.getImage(data.morph_target_data_file + "_morph_nor.png",function(img) {
+		if(img != null) {
+			_gthis.morphDataNor = img;
+		}
+	});
+	this.morphMap = new haxe_ds_StringMap();
+	var i = 0;
+	var _g = 0;
+	var _g1 = data.morph_target_ref;
+	while(_g < _g1.length) {
+		var name = _g1[_g];
+		++_g;
+		this.morphMap.h[name] = i;
+		++i;
+	}
+};
+$hxClasses["iron.object.MorphTarget"] = iron_object_MorphTarget;
+iron_object_MorphTarget.__name__ = true;
+iron_object_MorphTarget.prototype = {
+	__class__: iron_object_MorphTarget
+};
 var iron_object_ObjectAnimation = function(object,oactions) {
 	this.object = object;
 	this.oactions = oactions;
@@ -17222,10 +17275,22 @@ iron_object_Uniforms.setObjectConstant = function(g,object,location,c) {
 	} else if(c.type == "vec2") {
 		var vx = null;
 		var vy = null;
-		if(c.link == "_tilesheetOffset") {
+		switch(c.link) {
+		case "_morphDataDim":
+			var mt = (js_Boot.__cast(object , iron_object_MeshObject)).morphTarget;
+			vx = mt.numMorphTargets;
+			vy = mt.morphBlockSize / mt.morphImageSize;
+			break;
+		case "_morphScaleOffset":
+			var mt = (js_Boot.__cast(object , iron_object_MeshObject)).morphTarget;
+			vx = mt.scaling;
+			vy = mt.offset;
+			break;
+		case "_tilesheetOffset":
 			var ts = (js_Boot.__cast(object , iron_object_MeshObject)).tilesheet;
 			vx = ts.tileX;
 			vy = ts.tileY;
+			break;
 		}
 		if(vx == null && iron_object_Uniforms.externalVec2Links != null) {
 			var _g = 0;
@@ -17283,10 +17348,15 @@ iron_object_Uniforms.setObjectConstant = function(g,object,location,c) {
 		g.setFloat(location,f);
 	} else if(c.type == "floats") {
 		var fa = null;
-		if(c.link == "_skinBones") {
+		switch(c.link) {
+		case "_morphWeights":
+			fa = (js_Boot.__cast(object , iron_object_MeshObject)).morphTarget.morphWeights;
+			break;
+		case "_skinBones":
 			if(object.animation != null) {
 				fa = (js_Boot.__cast(object.animation , iron_object_BoneAnimation)).skinBuffer;
 			}
+			break;
 		}
 		if(fa == null && iron_object_Uniforms.externalFloatsLinks != null) {
 			var _g = 0;
