@@ -187,6 +187,13 @@ Std.parseInt = function(x) {
 	}
 	return null;
 };
+Std.random = function(x) {
+	if(x <= 0) {
+		return 0;
+	} else {
+		return Math.floor(Math.random() * x);
+	}
+};
 var StringTools = function() { };
 $hxClasses["StringTools"] = StringTools;
 StringTools.__name__ = true;
@@ -374,17 +381,18 @@ arm_node_FireTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			var i = _g++;
 			_SpawnObject_001.outputs[i] = [];
 		}
-		var _OnEvent_001 = new armory_logicnode_OnEventNode(this);
-		_OnEvent_001.set_property0("fire");
-		_OnEvent_001.inputs.length = 0;
-		_OnEvent_001.outputs.length = 1;
+		var _OnEvent = new armory_logicnode_OnEventNode(this);
+		_OnEvent.property1 = "init";
+		_OnEvent.inputs.length = 1;
+		_OnEvent.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _OnEvent_001.outputs.length;
+		var _g1 = _OnEvent.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_OnEvent_001.outputs[i] = [];
+			_OnEvent.outputs[i] = [];
 		}
-		armory_logicnode_LogicNode.addLink(_OnEvent_001,_SpawnObject_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"fire"),_OnEvent,0,0);
+		armory_logicnode_LogicNode.addLink(_OnEvent,_SpawnObject_001,0,0);
 		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,"Bullet"),_SpawnObject_001,0,1);
 		var _GetObjectTransform_001 = new armory_logicnode_GetTransformNode(this);
 		_GetObjectTransform_001.inputs.length = 1;
@@ -685,7 +693,7 @@ arm_node_Player1Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			_Merge_001.outputs[i] = [];
 		}
 		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard.property0 = "down";
+		_Keyboard.property0 = "started";
 		_Keyboard.property1 = "space";
 		_Keyboard.inputs.length = 0;
 		_Keyboard.outputs.length = 2;
@@ -698,7 +706,7 @@ arm_node_Player1Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
 		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_001,0,0);
 		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad.property0 = "down";
+		_Gamepad.property0 = "started";
 		_Gamepad.property1 = "cross";
 		_Gamepad.inputs.length = 1;
 		_Gamepad.outputs.length = 2;
@@ -968,7 +976,7 @@ arm_node_Player2Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			_Merge_001.outputs[i] = [];
 		}
 		var _Keyboard = new armory_logicnode_MergedKeyboardNode(this);
-		_Keyboard.property0 = "down";
+		_Keyboard.property0 = "started";
 		_Keyboard.property1 = "f";
 		_Keyboard.inputs.length = 0;
 		_Keyboard.outputs.length = 2;
@@ -981,8 +989,8 @@ arm_node_Player2Fire.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 		armory_logicnode_LogicNode.addLink(_Keyboard,new armory_logicnode_BooleanNode(this,false),1,0);
 		armory_logicnode_LogicNode.addLink(_Keyboard,_Merge_001,0,0);
 		var _Gamepad = new armory_logicnode_MergedGamepadNode(this);
-		_Gamepad.property0 = "down";
-		_Gamepad.property1 = "cross";
+		_Gamepad.property0 = "started";
+		_Gamepad.property1 = "circle";
 		_Gamepad.inputs.length = 1;
 		_Gamepad.outputs.length = 2;
 		var _g = 0;
@@ -1013,30 +1021,6 @@ arm_node_TankTree.__name__ = true;
 arm_node_TankTree.__super__ = armory_logicnode_LogicTree;
 arm_node_TankTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _TranslateObject_002 = new armory_logicnode_TranslateObjectNode(this);
-		_TranslateObject_002.inputs.length = 4;
-		_TranslateObject_002.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _TranslateObject_002.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_TranslateObject_002.outputs[i] = [];
-		}
-		var _OnEvent_001 = new armory_logicnode_OnEventNode(this);
-		_OnEvent_001.set_property0("forward");
-		_OnEvent_001.inputs.length = 0;
-		_OnEvent_001.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _OnEvent_001.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_OnEvent_001.outputs[i] = [];
-		}
-		armory_logicnode_LogicNode.addLink(_OnEvent_001,_TranslateObject_002,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject_002,0,1);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,0.05000000074505806,0.0),_TranslateObject_002,0,2);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject_002,0,3);
-		armory_logicnode_LogicNode.addLink(_TranslateObject_002,new armory_logicnode_NullNode(this),0,0);
 		var _TranslateObject = new armory_logicnode_TranslateObjectNode(this);
 		_TranslateObject.inputs.length = 4;
 		_TranslateObject.outputs.length = 1;
@@ -1046,9 +1030,60 @@ arm_node_TankTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			var i = _g++;
 			_TranslateObject.outputs[i] = [];
 		}
+		var _OnEvent_001 = new armory_logicnode_OnEventNode(this);
+		_OnEvent_001.property1 = "init";
+		_OnEvent_001.inputs.length = 1;
+		_OnEvent_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"backward"),_OnEvent_001,0,0);
+		armory_logicnode_LogicNode.addLink(_OnEvent_001,_TranslateObject,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,-0.05000000074505806,0.0),_TranslateObject,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject,0,3);
+		armory_logicnode_LogicNode.addLink(_TranslateObject,new armory_logicnode_NullNode(this),0,0);
+		var _TranslateObject_002 = new armory_logicnode_TranslateObjectNode(this);
+		_TranslateObject_002.inputs.length = 4;
+		_TranslateObject_002.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _TranslateObject_002.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_TranslateObject_002.outputs[i] = [];
+		}
+		var _OnEvent_003 = new armory_logicnode_OnEventNode(this);
+		_OnEvent_003.property1 = "init";
+		_OnEvent_003.inputs.length = 1;
+		_OnEvent_003.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_003.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"forward"),_OnEvent_003,0,0);
+		armory_logicnode_LogicNode.addLink(_OnEvent_003,_TranslateObject_002,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject_002,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,0.05000000074505806,0.0),_TranslateObject_002,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject_002,0,3);
+		armory_logicnode_LogicNode.addLink(_TranslateObject_002,new armory_logicnode_NullNode(this),0,0);
+		var _RotateObject = new armory_logicnode_RotateObjectNode(this);
+		_RotateObject.property0 = "Local";
+		_RotateObject.inputs.length = 3;
+		_RotateObject.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _RotateObject.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_RotateObject.outputs[i] = [];
+		}
 		var _OnEvent = new armory_logicnode_OnEventNode(this);
-		_OnEvent.set_property0("backward");
-		_OnEvent.inputs.length = 0;
+		_OnEvent.property1 = "init";
+		_OnEvent.inputs.length = 1;
 		_OnEvent.outputs.length = 1;
 		var _g = 0;
 		var _g1 = _OnEvent.outputs.length;
@@ -1056,70 +1091,21 @@ arm_node_TankTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			var i = _g++;
 			_OnEvent.outputs[i] = [];
 		}
-		armory_logicnode_LogicNode.addLink(_OnEvent,_TranslateObject,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_TranslateObject,0,1);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_VectorNode(this,0.0,-0.05000000074505806,0.0),_TranslateObject,0,2);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_TranslateObject,0,3);
-		armory_logicnode_LogicNode.addLink(_TranslateObject,new armory_logicnode_NullNode(this),0,0);
-		var _RotateObject_001 = new armory_logicnode_RotateObjectNode(this);
-		_RotateObject_001.property0 = "Local";
-		_RotateObject_001.inputs.length = 4;
-		_RotateObject_001.outputs.length = 1;
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_left"),_OnEvent,0,0);
+		armory_logicnode_LogicNode.addLink(_OnEvent,_RotateObject,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject,0,1);
+		var _Rotation = new armory_logicnode_RotationNode(this);
+		_Rotation.property0 = "EulerAngles";
+		_Rotation.property1 = "Rad";
+		_Rotation.property2 = "XYZ";
+		_Rotation.inputs.length = 2;
+		_Rotation.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _RotateObject_001.outputs.length;
+		var _g1 = _Rotation.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_RotateObject_001.outputs[i] = [];
+			_Rotation.outputs[i] = [];
 		}
-		var _OnEvent_002 = new armory_logicnode_OnEventNode(this);
-		_OnEvent_002.set_property0("turn_right");
-		_OnEvent_002.inputs.length = 0;
-		_OnEvent_002.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _OnEvent_002.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_OnEvent_002.outputs[i] = [];
-		}
-		armory_logicnode_LogicNode.addLink(_OnEvent_002,_RotateObject_001,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject_001,0,1);
-		var _Vector_001 = new armory_logicnode_VectorNode(this);
-		_Vector_001.inputs.length = 3;
-		_Vector_001.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _Vector_001.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_Vector_001.outputs[i] = [];
-		}
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,1);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.029999999329447746),_Vector_001,0,2);
-		armory_logicnode_LogicNode.addLink(_Vector_001,_RotateObject_001,0,2);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_RotateObject_001,0,3);
-		armory_logicnode_LogicNode.addLink(_RotateObject_001,new armory_logicnode_NullNode(this),0,0);
-		var _RotateObject_002 = new armory_logicnode_RotateObjectNode(this);
-		_RotateObject_002.property0 = "Local";
-		_RotateObject_002.inputs.length = 4;
-		_RotateObject_002.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _RotateObject_002.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_RotateObject_002.outputs[i] = [];
-		}
-		var _OnEvent_004 = new armory_logicnode_OnEventNode(this);
-		_OnEvent_004.set_property0("turn_left");
-		_OnEvent_004.inputs.length = 0;
-		_OnEvent_004.outputs.length = 1;
-		var _g = 0;
-		var _g1 = _OnEvent_004.outputs.length;
-		while(_g < _g1) {
-			var i = _g++;
-			_OnEvent_004.outputs[i] = [];
-		}
-		armory_logicnode_LogicNode.addLink(_OnEvent_004,_RotateObject_002,0,0);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject_002,0,1);
 		var _Vector_002 = new armory_logicnode_VectorNode(this);
 		_Vector_002.inputs.length = 3;
 		_Vector_002.outputs.length = 1;
@@ -1132,9 +1118,61 @@ arm_node_TankTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_002,0,0);
 		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_002,0,1);
 		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,-0.029999999329447746),_Vector_002,0,2);
-		armory_logicnode_LogicNode.addLink(_Vector_002,_RotateObject_002,0,2);
-		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_RotateObject_002,0,3);
-		armory_logicnode_LogicNode.addLink(_RotateObject_002,new armory_logicnode_NullNode(this),0,0);
+		armory_logicnode_LogicNode.addLink(_Vector_002,_Rotation,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Rotation,0,1);
+		armory_logicnode_LogicNode.addLink(_Rotation,_RotateObject,0,2);
+		armory_logicnode_LogicNode.addLink(_RotateObject,new armory_logicnode_NullNode(this),0,0);
+		var _RotateObject_003 = new armory_logicnode_RotateObjectNode(this);
+		_RotateObject_003.property0 = "Local";
+		_RotateObject_003.inputs.length = 3;
+		_RotateObject_003.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _RotateObject_003.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_RotateObject_003.outputs[i] = [];
+		}
+		var _OnEvent_004 = new armory_logicnode_OnEventNode(this);
+		_OnEvent_004.property1 = "init";
+		_OnEvent_004.inputs.length = 1;
+		_OnEvent_004.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _OnEvent_004.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_OnEvent_004.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_StringNode(this,"turn_right"),_OnEvent_004,0,0);
+		armory_logicnode_LogicNode.addLink(_OnEvent_004,_RotateObject_003,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_ObjectNode(this,""),_RotateObject_003,0,1);
+		var _Rotation_001 = new armory_logicnode_RotationNode(this);
+		_Rotation_001.property0 = "EulerAngles";
+		_Rotation_001.property1 = "Rad";
+		_Rotation_001.property2 = "XYZ";
+		_Rotation_001.inputs.length = 2;
+		_Rotation_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _Rotation_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Rotation_001.outputs[i] = [];
+		}
+		var _Vector_001 = new armory_logicnode_VectorNode(this);
+		_Vector_001.inputs.length = 3;
+		_Vector_001.outputs.length = 1;
+		var _g = 0;
+		var _g1 = _Vector_001.outputs.length;
+		while(_g < _g1) {
+			var i = _g++;
+			_Vector_001.outputs[i] = [];
+		}
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Vector_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.029999999329447746),_Vector_001,0,2);
+		armory_logicnode_LogicNode.addLink(_Vector_001,_Rotation_001,0,0);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,0.0),_Rotation_001,0,1);
+		armory_logicnode_LogicNode.addLink(_Rotation_001,_RotateObject_003,0,2);
+		armory_logicnode_LogicNode.addLink(_RotateObject_003,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_TankTree
 });
@@ -1668,15 +1706,45 @@ armory_logicnode_ObjectNode.prototype = $extend(armory_logicnode_LogicNode.proto
 var armory_logicnode_OnEventNode = function(tree) {
 	this.listener = null;
 	armory_logicnode_LogicNode.call(this,tree);
+	tree.notifyOnInit($bind(this,this.init_main));
 	tree.notifyOnRemove($bind(this,this.onRemove));
 };
 $hxClasses["armory.logicnode.OnEventNode"] = armory_logicnode_OnEventNode;
 armory_logicnode_OnEventNode.__name__ = true;
 armory_logicnode_OnEventNode.__super__ = armory_logicnode_LogicNode;
 armory_logicnode_OnEventNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
-	set_property0: function(s) {
-		this.listener = armory_system_Event.add(s,$bind(this,this.onEvent),this.tree.object.uid);
-		return this._property0 = s;
+	init_main: function() {
+		switch(this.property1) {
+		case "init":
+			this.tree.notifyOnInit($bind(this,this.init));
+			break;
+		case "update":
+			this.tree.notifyOnUpdate($bind(this,this.update));
+			break;
+		}
+	}
+	,init: function() {
+		var _this = this.inputs[0];
+		this.value = _this.fromNode.get(_this.fromIndex);
+		this.listener = armory_system_Event.add(this.value,$bind(this,this.onEvent),this.tree.object.uid);
+	}
+	,update: function() {
+		var _this = this.inputs[0];
+		this.value = _this.fromNode.get(_this.fromIndex);
+		if(this.value != this.oldValue) {
+			this.onRemove();
+			this.listener = armory_system_Event.add(this.value,$bind(this,this.onEvent),this.tree.object.uid);
+			this.oldValue = this.value;
+		}
+	}
+	,run: function(from) {
+		var _this = this.inputs[1];
+		this.value = _this.fromNode.get(_this.fromIndex);
+		if(this.value != this.oldValue) {
+			this.onRemove();
+			this.listener = armory_system_Event.add(this.value,$bind(this,this.onEvent),this.tree.object.uid);
+			this.oldValue = this.value;
+		}
 	}
 	,onEvent: function() {
 		this.runOutput(0);
@@ -1687,7 +1755,6 @@ armory_logicnode_OnEventNode.prototype = $extend(armory_logicnode_LogicNode.prot
 		}
 	}
 	,__class__: armory_logicnode_OnEventNode
-	,__properties__: {set_property0:"set_property0"}
 });
 var armory_logicnode_RemoveObjectNode = function(tree) {
 	armory_logicnode_LogicNode.call(this,tree);
@@ -1777,6 +1844,270 @@ armory_logicnode_RotateObjectNode.prototype = $extend(armory_logicnode_LogicNode
 		this.runOutput(0);
 	}
 	,__class__: armory_logicnode_RotateObjectNode
+});
+var armory_logicnode_RotationNode = function(tree,x,y,z,w) {
+	this.input_length = 0;
+	armory_logicnode_LogicNode.call(this,tree);
+	this.value = new iron_math_Quat();
+	if(x != null) {
+		var _this = this.value;
+		_this.x = x;
+		_this.y = y;
+		_this.z = z;
+		_this.w = w;
+	}
+	var _g = 0;
+	var _g1 = this.inputs;
+	while(_g < _g1.length) {
+		var input = _g1[_g];
+		++_g;
+		if(input != null) {
+			this.input_length += 1;
+		} else {
+			break;
+		}
+	}
+};
+$hxClasses["armory.logicnode.RotationNode"] = armory_logicnode_RotationNode;
+armory_logicnode_RotationNode.__name__ = true;
+armory_logicnode_RotationNode.__super__ = armory_logicnode_LogicNode;
+armory_logicnode_RotationNode.prototype = $extend(armory_logicnode_LogicNode.prototype,{
+	get: function(from) {
+		if(this.inputs.length == 0) {
+			return this.value;
+		}
+		switch(this.property0) {
+		case "AxisAngle":
+			if(this.inputs[0] != null && this.inputs[1] != null) {
+				var _this = this.inputs[0];
+				var vec = _this.fromNode.get(_this.fromIndex);
+				var _this = this.inputs[1];
+				var angle = _this.fromNode.get(_this.fromIndex);
+				if(this.property1 == "Deg") {
+					angle *= 0.017453292519943295;
+				}
+				var _this = this.value;
+				var s = Math.sin(angle * 0.5);
+				_this.x = vec.x * s;
+				_this.y = vec.y * s;
+				_this.z = vec.z * s;
+				_this.w = Math.cos(angle * 0.5);
+				var l = Math.sqrt(_this.x * _this.x + _this.y * _this.y + _this.z * _this.z + _this.w * _this.w);
+				if(l == 0.0) {
+					_this.x = 0;
+					_this.y = 0;
+					_this.z = 0;
+					_this.w = 0;
+				} else {
+					l = 1.0 / l;
+					_this.x *= l;
+					_this.y *= l;
+					_this.z *= l;
+					_this.w *= l;
+				}
+			}
+			break;
+		case "EulerAngles":
+			if(this.inputs[0] != null) {
+				var vec_x = 0.0;
+				var vec_y = 0.0;
+				var vec_z = 0.0;
+				var vec_w = 1.0;
+				var _this = this.inputs[0];
+				var v = _this.fromNode.get(_this.fromIndex);
+				vec_x = v.x;
+				vec_y = v.y;
+				vec_z = v.z;
+				vec_w = v.w;
+				if(this.property1 == "Deg") {
+					vec_x *= 0.017453292519943295;
+					vec_y *= 0.017453292519943295;
+					vec_z *= 0.017453292519943295;
+				}
+				var _this = this.value;
+				var order = this.property2;
+				var c1 = Math.cos(vec_x / 2);
+				var c2 = Math.cos(vec_y / 2);
+				var c3 = Math.cos(vec_z / 2);
+				var s1 = Math.sin(vec_x / 2);
+				var s2 = Math.sin(vec_y / 2);
+				var s3 = Math.sin(vec_z / 2);
+				var x = s1;
+				var y = 0;
+				var z = 0;
+				var w = c1;
+				if(w == null) {
+					w = 1.0;
+				}
+				if(z == null) {
+					z = 0.0;
+				}
+				if(y == null) {
+					y = 0.0;
+				}
+				if(x == null) {
+					x = 0.0;
+				}
+				var qx_x = x;
+				var qx_y = y;
+				var qx_z = z;
+				var qx_w = w;
+				var x = 0;
+				var y = s2;
+				var z = 0;
+				var w = c2;
+				if(w == null) {
+					w = 1.0;
+				}
+				if(z == null) {
+					z = 0.0;
+				}
+				if(y == null) {
+					y = 0.0;
+				}
+				if(x == null) {
+					x = 0.0;
+				}
+				var qy_x = x;
+				var qy_y = y;
+				var qy_z = z;
+				var qy_w = w;
+				var x = 0;
+				var y = 0;
+				var z = s3;
+				var w = c3;
+				if(w == null) {
+					w = 1.0;
+				}
+				if(z == null) {
+					z = 0.0;
+				}
+				if(y == null) {
+					y = 0.0;
+				}
+				if(x == null) {
+					x = 0.0;
+				}
+				var qz_x = x;
+				var qz_y = y;
+				var qz_z = z;
+				var qz_w = w;
+				if(order.charAt(2) == "X") {
+					_this.x = qx_x;
+					_this.y = qx_y;
+					_this.z = qx_z;
+					_this.w = qx_w;
+				} else if(order.charAt(2) == "Y") {
+					_this.x = qy_x;
+					_this.y = qy_y;
+					_this.z = qy_z;
+					_this.w = qy_w;
+				} else {
+					_this.x = qz_x;
+					_this.y = qz_y;
+					_this.z = qz_z;
+					_this.w = qz_w;
+				}
+				if(order.charAt(1) == "X") {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qx_x;
+					var q2y = qx_y;
+					var q2z = qx_z;
+					var q2w = qx_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				} else if(order.charAt(1) == "Y") {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qy_x;
+					var q2y = qy_y;
+					var q2z = qy_z;
+					var q2w = qy_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				} else {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qz_x;
+					var q2y = qz_y;
+					var q2z = qz_z;
+					var q2w = qz_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				}
+				if(order.charAt(0) == "X") {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qx_x;
+					var q2y = qx_y;
+					var q2z = qx_z;
+					var q2w = qx_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				} else if(order.charAt(0) == "Y") {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qy_x;
+					var q2y = qy_y;
+					var q2z = qy_z;
+					var q2w = qy_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				} else {
+					var q1x = _this.x;
+					var q1y = _this.y;
+					var q1z = _this.z;
+					var q1w = _this.w;
+					var q2x = qz_x;
+					var q2y = qz_y;
+					var q2z = qz_z;
+					var q2w = qz_w;
+					_this.x = q1x * q2w + q1w * q2x + q1y * q2z - q1z * q2y;
+					_this.y = q1w * q2y - q1x * q2z + q1y * q2w + q1z * q2x;
+					_this.z = q1w * q2z + q1x * q2y - q1y * q2x + q1z * q2w;
+					_this.w = q1w * q2w - q1x * q2x - q1y * q2y - q1z * q2z;
+				}
+			}
+			break;
+		case "Quaternion":
+			if(this.inputs[0] != null && this.inputs[1] != null) {
+				var _this = this.inputs[0];
+				var vect = _this.fromNode.get(_this.fromIndex);
+				this.value.x = vect.x;
+				this.value.y = vect.y;
+				this.value.z = vect.z;
+				var _this = this.inputs[1];
+				var tmp = _this.fromNode.get(_this.fromIndex);
+				this.value.w = tmp;
+			}
+			break;
+		default:
+			return this.property0;
+		}
+		return this.value;
+	}
+	,__class__: armory_logicnode_RotationNode
 });
 var armory_logicnode_SendEventNode = function(tree) {
 	armory_logicnode_LogicNode.call(this,tree);
@@ -3031,7 +3362,7 @@ armory_system_Starter.main = function(scene,mode,resize,min,max,w,h,msaa,vsync,g
 	var loadLibAmmo = function(name) {
 		kha_Assets.loadBlobFromPath(name,function(b) {
 			(1,eval)(b.toString());
-			Ammo({print:function(s){haxe.Log.trace(s);}}).then(function(){ tasks--; start();});
+			Ammo({print:function(s){iron.log(s);}}).then(function(){ tasks--; start();});
 		},null,{ fileName : "Sources/armory/system/Starter.hx", lineNumber : 78, className : "armory.system.Starter", methodName : "main"});
 	};
 	tasks = 1;
@@ -5718,135 +6049,6 @@ var haxe_io_Encoding = $hxEnums["haxe.io.Encoding"] = { __ename__:true,__constru
 	,RawNative: {_hx_name:"RawNative",_hx_index:1,__enum__:"haxe.io.Encoding",toString:$estr}
 };
 haxe_io_Encoding.__constructs__ = [haxe_io_Encoding.UTF8,haxe_io_Encoding.RawNative];
-var haxe_ds_ArraySort = function() { };
-$hxClasses["haxe.ds.ArraySort"] = haxe_ds_ArraySort;
-haxe_ds_ArraySort.__name__ = true;
-haxe_ds_ArraySort.sort = function(a,cmp) {
-	haxe_ds_ArraySort.rec(a,cmp,0,a.length);
-};
-haxe_ds_ArraySort.rec = function(a,cmp,from,to) {
-	var middle = from + to >> 1;
-	if(to - from < 12) {
-		if(to <= from) {
-			return;
-		}
-		var _g = from + 1;
-		var _g1 = to;
-		while(_g < _g1) {
-			var i = _g++;
-			var j = i;
-			while(j > from) {
-				if(cmp(a[j],a[j - 1]) < 0) {
-					haxe_ds_ArraySort.swap(a,j - 1,j);
-				} else {
-					break;
-				}
-				--j;
-			}
-		}
-		return;
-	}
-	haxe_ds_ArraySort.rec(a,cmp,from,middle);
-	haxe_ds_ArraySort.rec(a,cmp,middle,to);
-	haxe_ds_ArraySort.doMerge(a,cmp,from,middle,to,middle - from,to - middle);
-};
-haxe_ds_ArraySort.doMerge = function(a,cmp,from,pivot,to,len1,len2) {
-	var first_cut;
-	var second_cut;
-	var len11;
-	var len22;
-	if(len1 == 0 || len2 == 0) {
-		return;
-	}
-	if(len1 + len2 == 2) {
-		if(cmp(a[pivot],a[from]) < 0) {
-			haxe_ds_ArraySort.swap(a,pivot,from);
-		}
-		return;
-	}
-	if(len1 > len2) {
-		len11 = len1 >> 1;
-		first_cut = from + len11;
-		second_cut = haxe_ds_ArraySort.lower(a,cmp,pivot,to,first_cut);
-		len22 = second_cut - pivot;
-	} else {
-		len22 = len2 >> 1;
-		second_cut = pivot + len22;
-		first_cut = haxe_ds_ArraySort.upper(a,cmp,from,pivot,second_cut);
-		len11 = first_cut - from;
-	}
-	haxe_ds_ArraySort.rotate(a,cmp,first_cut,pivot,second_cut);
-	var new_mid = first_cut + len22;
-	haxe_ds_ArraySort.doMerge(a,cmp,from,first_cut,new_mid,len11,len22);
-	haxe_ds_ArraySort.doMerge(a,cmp,new_mid,second_cut,to,len1 - len11,len2 - len22);
-};
-haxe_ds_ArraySort.rotate = function(a,cmp,from,mid,to) {
-	if(from == mid || mid == to) {
-		return;
-	}
-	var n = haxe_ds_ArraySort.gcd(to - from,mid - from);
-	while(n-- != 0) {
-		var val = a[from + n];
-		var shift = mid - from;
-		var p1 = from + n;
-		var p2 = from + n + shift;
-		while(p2 != from + n) {
-			a[p1] = a[p2];
-			p1 = p2;
-			if(to - p2 > shift) {
-				p2 += shift;
-			} else {
-				p2 = from + (shift - (to - p2));
-			}
-		}
-		a[p1] = val;
-	}
-};
-haxe_ds_ArraySort.gcd = function(m,n) {
-	while(n != 0) {
-		var t = m % n;
-		m = n;
-		n = t;
-	}
-	return m;
-};
-haxe_ds_ArraySort.upper = function(a,cmp,from,to,val) {
-	var len = to - from;
-	var half;
-	var mid;
-	while(len > 0) {
-		half = len >> 1;
-		mid = from + half;
-		if(cmp(a[val],a[mid]) < 0) {
-			len = half;
-		} else {
-			from = mid + 1;
-			len = len - half - 1;
-		}
-	}
-	return from;
-};
-haxe_ds_ArraySort.lower = function(a,cmp,from,to,val) {
-	var len = to - from;
-	var half;
-	var mid;
-	while(len > 0) {
-		half = len >> 1;
-		mid = from + half;
-		if(cmp(a[mid],a[val]) < 0) {
-			from = mid + 1;
-			len = len - half - 1;
-		} else {
-			len = half;
-		}
-	}
-	return from;
-};
-haxe_ds_ArraySort.swap = function(a,i,j) {
-	var tmp = a[i];
-	a[i] = a[j];
-	a[j] = tmp;
-};
 var haxe_ds_IntMap = function() {
 	this.h = { };
 };
@@ -7194,6 +7396,7 @@ iron_Scene.create = function(format,done) {
 				haxe_Log.trace("No camera found for scene \"" + format.name + "\"",{ fileName : "Sources/iron/Scene.hx", lineNumber : 135, className : "iron.Scene", methodName : "create"});
 			}
 			iron_Scene.active.camera = iron_Scene.active.getCamera(format.camera_ref);
+			iron_Scene.active.sceneParent = sceneObject;
 			iron_Scene.active.ready = true;
 			var _g = 0;
 			var _g1 = iron_Scene.active.traitInits;
@@ -7203,7 +7406,6 @@ iron_Scene.create = function(format,done) {
 				f();
 			}
 			iron_Scene.active.traitInits = [];
-			iron_Scene.active.sceneParent = sceneObject;
 			iron_Scene.active.initializing = false;
 			done(sceneObject);
 		});
@@ -7401,7 +7603,7 @@ iron_Scene.createTraits = function(traits,object) {
 			}
 			var traitInst = iron_Scene.createTraitClassInstance(t.class_name,args);
 			if(traitInst == null) {
-				haxe_Log.trace("Error: Trait '" + t.class_name + "' referenced in object '" + object.name + "' not found",{ fileName : "Sources/iron/Scene.hx", lineNumber : 862, className : "iron.Scene", methodName : "createTraits"});
+				haxe_Log.trace("Error: Trait '" + t.class_name + "' referenced in object '" + object.name + "' not found",{ fileName : "Sources/iron/Scene.hx", lineNumber : 863, className : "iron.Scene", methodName : "createTraits"});
 				continue;
 			}
 			if(t.props != null) {
@@ -14626,41 +14828,137 @@ iron_object_ParticleSystem.prototype = {
 	,setupGeomGpu: function(object,owner) {
 		var instancedData = kha_arrays_Float32Array._new(this.particles.length * 3);
 		var i = 0;
-		if(this.r.emit_from == 0) {
+		var scaleFactorVol = owner.data.scalePos / this.r.particle_size;
+		var scaleFactorVertFace = 3.05185094759971923e-05 * scaleFactorVol;
+		switch(this.r.emit_from) {
+		case 0:
 			var pa = owner.data.geom.positions;
-			var sc = owner.data.scalePos;
 			var _g = 0;
 			var _g1 = this.particles;
 			while(_g < _g1.length) {
 				var p = _g1[_g];
 				++_g;
 				var j = this.fhash(i) * ((pa.values.byteLength >> 1) / pa.size) | 0;
-				var v = pa.values.getInt16(j * pa.size * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) / 32767 * sc / this.r.particle_size;
+				var v = pa.values.getInt16(j * pa.size * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v,true);
 				++i;
-				var v1 = pa.values.getInt16((j * pa.size + 1) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) / 32767 * sc / this.r.particle_size;
+				var v1 = pa.values.getInt16((j * pa.size + 1) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v1,true);
 				++i;
-				var v2 = pa.values.getInt16((j * pa.size + 2) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) / 32767 * sc / this.r.particle_size;
+				var v2 = pa.values.getInt16((j * pa.size + 2) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN) * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v2,true);
 				++i;
 			}
-		} else {
+			break;
+		case 1:
+			var positions = owner.data.geom.positions.values;
 			var _g = 0;
 			var _g1 = this.particles;
 			while(_g < _g1.length) {
 				var p = _g1[_g];
 				++_g;
-				var v = (Math.random() * 2.0 - 1.0) * (object.transform.dim.x / 2.0);
+				var ia = owner.data.geom.indices[Std.random(owner.data.geom.indices.length)];
+				var faceIndex = Std.random((ia.byteLength >> 2) / 3 | 0);
+				var i0 = ia.getUint32(faceIndex * 3 * 4,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var i1 = ia.getUint32((faceIndex * 3 + 1) * 4,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var i2 = ia.getUint32((faceIndex * 3 + 2) * 4,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var x = positions.getInt16(i0 * 4 * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var y = positions.getInt16((i0 * 4 + 1) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var z = positions.getInt16((i0 * 4 + 2) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				if(z == null) {
+					z = 0.0;
+				}
+				if(y == null) {
+					y = 0.0;
+				}
+				if(x == null) {
+					x = 0.0;
+				}
+				var pos_x = x;
+				var pos_y = y;
+				var pos_z = z;
+				var x1 = positions.getInt16(i1 * 4 * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var y1 = positions.getInt16((i1 * 4 + 1) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var z1 = positions.getInt16((i1 * 4 + 2) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				if(z1 == null) {
+					z1 = 0.0;
+				}
+				if(y1 == null) {
+					y1 = 0.0;
+				}
+				if(x1 == null) {
+					x1 = 0.0;
+				}
+				var v_x = x1;
+				var v_y = y1;
+				var v_z = z1;
+				var x2 = positions.getInt16(i2 * 4 * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var y2 = positions.getInt16((i2 * 4 + 1) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				var z2 = positions.getInt16((i2 * 4 + 2) * 2,kha_arrays_ByteArray.LITTLE_ENDIAN);
+				if(z2 == null) {
+					z2 = 0.0;
+				}
+				if(y2 == null) {
+					y2 = 0.0;
+				}
+				if(x2 == null) {
+					x2 = 0.0;
+				}
+				var v_x1 = x2;
+				var v_y1 = y2;
+				var v_z1 = z2;
+				var x3 = Math.random();
+				var y3 = Math.random();
+				if(x3 + y3 > 1) {
+					x3 = 1 - x3;
+					y3 = 1 - y3;
+				}
+				v_x -= pos_x;
+				v_y -= pos_y;
+				v_z -= pos_z;
+				v_x1 -= pos_x;
+				v_y1 -= pos_y;
+				v_z1 -= pos_z;
+				v_x *= x3;
+				v_y *= x3;
+				v_z *= x3;
+				v_x1 *= y3;
+				v_y1 *= y3;
+				v_z1 *= y3;
+				v_x += v_x1;
+				v_y += v_y1;
+				v_z += v_z1;
+				pos_x += v_x;
+				pos_y += v_y;
+				pos_z += v_z;
+				var v = pos_x * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v,true);
 				++i;
-				var v1 = (Math.random() * 2.0 - 1.0) * (object.transform.dim.y / 2.0);
+				var v1 = pos_y * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v1,true);
 				++i;
-				var v2 = (Math.random() * 2.0 - 1.0) * (object.transform.dim.z / 2.0);
+				var v2 = pos_z * scaleFactorVertFace;
 				instancedData.setFloat32(i * 4,v2,true);
 				++i;
 			}
+			break;
+		case 2:
+			var _g = 0;
+			var _g1 = this.particles;
+			while(_g < _g1.length) {
+				var p = _g1[_g];
+				++_g;
+				var v = (Math.random() * 2.0 - 1.0) * (object.transform.dim.x / 2.0) * scaleFactorVol;
+				instancedData.setFloat32(i * 4,v,true);
+				++i;
+				var v1 = (Math.random() * 2.0 - 1.0) * (object.transform.dim.y / 2.0) * scaleFactorVol;
+				instancedData.setFloat32(i * 4,v1,true);
+				++i;
+				var v2 = (Math.random() * 2.0 - 1.0) * (object.transform.dim.z / 2.0) * scaleFactorVol;
+				instancedData.setFloat32(i * 4,v2,true);
+				++i;
+			}
+			break;
 		}
 		object.data.geom.setupInstanced(instancedData,1,0);
 	}
@@ -15769,85 +16067,60 @@ iron_object_Uniforms.setObjectConstants = function(g,context,object) {
 				if(tu.link == null) {
 					continue;
 				}
-				var s = tu.addressing_u;
 				var tuAddrU;
-				if(s == null) {
+				switch(tu.addressing_u) {
+				case "clamp":
+					tuAddrU = 2;
+					break;
+				case "mirror":
+					tuAddrU = 1;
+					break;
+				default:
 					tuAddrU = 0;
-				} else {
-					switch(s) {
-					case "clamp":
-						tuAddrU = 2;
-						break;
-					case "mirror":
-						tuAddrU = 1;
-						break;
-					default:
-						tuAddrU = 0;
-					}
 				}
-				var s1 = tu.addressing_v;
 				var tuAddrV;
-				if(s1 == null) {
+				switch(tu.addressing_v) {
+				case "clamp":
+					tuAddrV = 2;
+					break;
+				case "mirror":
+					tuAddrV = 1;
+					break;
+				default:
 					tuAddrV = 0;
-				} else {
-					switch(s1) {
-					case "clamp":
-						tuAddrV = 2;
-						break;
-					case "mirror":
-						tuAddrV = 1;
-						break;
-					default:
-						tuAddrV = 0;
-					}
 				}
-				var s2 = tu.filter_min;
 				var tuFilterMin;
-				if(s2 == null) {
+				switch(tu.filter_min) {
+				case "anisotropic":
+					tuFilterMin = 2;
+					break;
+				case "point":
+					tuFilterMin = 0;
+					break;
+				default:
 					tuFilterMin = 1;
-				} else {
-					switch(s2) {
-					case "anisotropic":
-						tuFilterMin = 2;
-						break;
-					case "point":
-						tuFilterMin = 0;
-						break;
-					default:
-						tuFilterMin = 1;
-					}
 				}
-				var s3 = tu.filter_mag;
 				var tuFilterMag;
-				if(s3 == null) {
+				switch(tu.filter_mag) {
+				case "anisotropic":
+					tuFilterMag = 2;
+					break;
+				case "point":
+					tuFilterMag = 0;
+					break;
+				default:
 					tuFilterMag = 1;
-				} else {
-					switch(s3) {
-					case "anisotropic":
-						tuFilterMag = 2;
-						break;
-					case "point":
-						tuFilterMag = 0;
-						break;
-					default:
-						tuFilterMag = 1;
-					}
 				}
-				var s4 = tu.mipmap_filter;
 				var tuMipMapFilter;
-				if(s4 == null) {
+				switch(tu.mipmap_filter) {
+				case "linear":
+					tuMipMapFilter = 2;
+					break;
+				case "point":
+					tuMipMapFilter = 1;
+					break;
+				default:
 					tuMipMapFilter = 0;
-				} else {
-					switch(s4) {
-					case "linear":
-						tuMipMapFilter = 2;
-						break;
-					case "point":
-						tuMipMapFilter = 1;
-						break;
-					default:
-						tuMipMapFilter = 0;
-					}
 				}
 				var _g2 = 0;
 				var _g3 = iron_object_Uniforms.externalTextureLinks;
@@ -16658,21 +16931,6 @@ iron_object_Uniforms.setContextConstant = function(g,location,c) {
 					v = iron_object_Uniforms.helpVec;
 				}
 				break;
-			case "_spotDirection":
-				var point = iron_RenderPath.active.point;
-				if(point != null) {
-					var _this = new iron_math_Vec4(point.V.self._02,point.V.self._12,point.V.self._22);
-					var n = Math.sqrt(_this.x * _this.x + _this.y * _this.y + _this.z * _this.z);
-					if(n > 0.0) {
-						var invN = 1.0 / n;
-						_this.x *= invN;
-						_this.y *= invN;
-						_this.z *= invN;
-					}
-					iron_object_Uniforms.helpVec = _this;
-					v = iron_object_Uniforms.helpVec;
-				}
-				break;
 			case "_sunColor":
 				var sun = iron_RenderPath.active.sun;
 				if(sun != null) {
@@ -16777,14 +17035,6 @@ iron_object_Uniforms.setContextConstant = function(g,location,c) {
 				if(light != null && light.data.raw.cast_shadow) {
 					v = iron_object_Uniforms.helpVec;
 					v.x = v.y = light.data.raw.shadowmap_size;
-				}
-				break;
-			case "_spotData":
-				var point = iron_RenderPath.active.point;
-				if(point != null) {
-					v = iron_object_Uniforms.helpVec;
-					v.x = point.data.raw.spot_size;
-					v.y = v.x - point.data.raw.spot_blend;
 				}
 				break;
 			case "_vec2x":
@@ -18391,226 +18641,7 @@ iron_object_Uniforms.setObjectConstant = function(g,object,location,c) {
 			m = iron_object_Uniforms.helpMat;
 			break;
 		}
-		if(m == null) {
-			if(StringTools.startsWith(c.link,"_biasLightWorldViewProjectionMatrixSpot")) {
-				var light = iron_object_Uniforms.getSpot(HxOverrides.cca(c.link,c.link.length - 1) - 48);
-				if(light != null) {
-					if(object == null) {
-						var _this = iron_object_Uniforms.helpMat;
-						_this.self._00 = 1.0;
-						_this.self._01 = 0.0;
-						_this.self._02 = 0.0;
-						_this.self._03 = 0.0;
-						_this.self._10 = 0.0;
-						_this.self._11 = 1.0;
-						_this.self._12 = 0.0;
-						_this.self._13 = 0.0;
-						_this.self._20 = 0.0;
-						_this.self._21 = 0.0;
-						_this.self._22 = 1.0;
-						_this.self._23 = 0.0;
-						_this.self._30 = 0.0;
-						_this.self._31 = 0.0;
-						_this.self._32 = 0.0;
-						_this.self._33 = 1.0;
-					} else {
-						var _this = iron_object_Uniforms.helpMat;
-						var m1 = object.transform.worldUnpack;
-						_this.self._00 = m1.self._00;
-						_this.self._01 = m1.self._01;
-						_this.self._02 = m1.self._02;
-						_this.self._03 = m1.self._03;
-						_this.self._10 = m1.self._10;
-						_this.self._11 = m1.self._11;
-						_this.self._12 = m1.self._12;
-						_this.self._13 = m1.self._13;
-						_this.self._20 = m1.self._20;
-						_this.self._21 = m1.self._21;
-						_this.self._22 = m1.self._22;
-						_this.self._23 = m1.self._23;
-						_this.self._30 = m1.self._30;
-						_this.self._31 = m1.self._31;
-						_this.self._32 = m1.self._32;
-						_this.self._33 = m1.self._33;
-					}
-					var _this = iron_object_Uniforms.helpMat;
-					var m1 = light.VP;
-					var a00 = _this.self._00;
-					var a01 = _this.self._01;
-					var a02 = _this.self._02;
-					var a03 = _this.self._03;
-					var a10 = _this.self._10;
-					var a11 = _this.self._11;
-					var a12 = _this.self._12;
-					var a13 = _this.self._13;
-					var a20 = _this.self._20;
-					var a21 = _this.self._21;
-					var a22 = _this.self._22;
-					var a23 = _this.self._23;
-					var a30 = _this.self._30;
-					var a31 = _this.self._31;
-					var a32 = _this.self._32;
-					var a33 = _this.self._33;
-					var b0 = m1.self._00;
-					var b1 = m1.self._10;
-					var b2 = m1.self._20;
-					var b3 = m1.self._30;
-					_this.self._00 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._10 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._20 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._30 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._01;
-					b1 = m1.self._11;
-					b2 = m1.self._21;
-					b3 = m1.self._31;
-					_this.self._01 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._11 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._21 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._31 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._02;
-					b1 = m1.self._12;
-					b2 = m1.self._22;
-					b3 = m1.self._32;
-					_this.self._02 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._12 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._22 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._32 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._03;
-					b1 = m1.self._13;
-					b2 = m1.self._23;
-					b3 = m1.self._33;
-					_this.self._03 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._13 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._23 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._33 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					var _this = iron_object_Uniforms.helpMat;
-					var m1 = iron_object_Uniforms.biasMat;
-					var a00 = _this.self._00;
-					var a01 = _this.self._01;
-					var a02 = _this.self._02;
-					var a03 = _this.self._03;
-					var a10 = _this.self._10;
-					var a11 = _this.self._11;
-					var a12 = _this.self._12;
-					var a13 = _this.self._13;
-					var a20 = _this.self._20;
-					var a21 = _this.self._21;
-					var a22 = _this.self._22;
-					var a23 = _this.self._23;
-					var a30 = _this.self._30;
-					var a31 = _this.self._31;
-					var a32 = _this.self._32;
-					var a33 = _this.self._33;
-					var b0 = m1.self._00;
-					var b1 = m1.self._10;
-					var b2 = m1.self._20;
-					var b3 = m1.self._30;
-					_this.self._00 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._10 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._20 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._30 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._01;
-					b1 = m1.self._11;
-					b2 = m1.self._21;
-					b3 = m1.self._31;
-					_this.self._01 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._11 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._21 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._31 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._02;
-					b1 = m1.self._12;
-					b2 = m1.self._22;
-					b3 = m1.self._32;
-					_this.self._02 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._12 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._22 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._32 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._03;
-					b1 = m1.self._13;
-					b2 = m1.self._23;
-					b3 = m1.self._33;
-					_this.self._03 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._13 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._23 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._33 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					m = iron_object_Uniforms.helpMat;
-				}
-			}
-			if(StringTools.startsWith(c.link,"_biasLightViewProjectionMatrixSpot")) {
-				var light = iron_object_Uniforms.getSpot(HxOverrides.cca(c.link,c.link.length - 1) - 48);
-				if(light != null) {
-					var _this = iron_object_Uniforms.helpMat;
-					var m1 = light.VP;
-					_this.self._00 = m1.self._00;
-					_this.self._01 = m1.self._01;
-					_this.self._02 = m1.self._02;
-					_this.self._03 = m1.self._03;
-					_this.self._10 = m1.self._10;
-					_this.self._11 = m1.self._11;
-					_this.self._12 = m1.self._12;
-					_this.self._13 = m1.self._13;
-					_this.self._20 = m1.self._20;
-					_this.self._21 = m1.self._21;
-					_this.self._22 = m1.self._22;
-					_this.self._23 = m1.self._23;
-					_this.self._30 = m1.self._30;
-					_this.self._31 = m1.self._31;
-					_this.self._32 = m1.self._32;
-					_this.self._33 = m1.self._33;
-					var _this = iron_object_Uniforms.helpMat;
-					var m1 = iron_object_Uniforms.biasMat;
-					var a00 = _this.self._00;
-					var a01 = _this.self._01;
-					var a02 = _this.self._02;
-					var a03 = _this.self._03;
-					var a10 = _this.self._10;
-					var a11 = _this.self._11;
-					var a12 = _this.self._12;
-					var a13 = _this.self._13;
-					var a20 = _this.self._20;
-					var a21 = _this.self._21;
-					var a22 = _this.self._22;
-					var a23 = _this.self._23;
-					var a30 = _this.self._30;
-					var a31 = _this.self._31;
-					var a32 = _this.self._32;
-					var a33 = _this.self._33;
-					var b0 = m1.self._00;
-					var b1 = m1.self._10;
-					var b2 = m1.self._20;
-					var b3 = m1.self._30;
-					_this.self._00 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._10 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._20 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._30 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._01;
-					b1 = m1.self._11;
-					b2 = m1.self._21;
-					b3 = m1.self._31;
-					_this.self._01 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._11 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._21 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._31 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._02;
-					b1 = m1.self._12;
-					b2 = m1.self._22;
-					b3 = m1.self._32;
-					_this.self._02 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._12 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._22 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._32 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					b0 = m1.self._03;
-					b1 = m1.self._13;
-					b2 = m1.self._23;
-					b3 = m1.self._33;
-					_this.self._03 = a00 * b0 + a01 * b1 + a02 * b2 + a03 * b3;
-					_this.self._13 = a10 * b0 + a11 * b1 + a12 * b2 + a13 * b3;
-					_this.self._23 = a20 * b0 + a21 * b1 + a22 * b2 + a23 * b3;
-					_this.self._33 = a30 * b0 + a31 * b1 + a32 * b2 + a33 * b3;
-					m = iron_object_Uniforms.helpMat;
-				}
-			}
-		}
+		var tmp = m == null;
 		if(m == null && iron_object_Uniforms.externalMat4Links != null) {
 			var _g = 0;
 			var _g1 = iron_object_Uniforms.externalMat4Links;
@@ -18977,23 +19008,6 @@ iron_object_Uniforms.setMaterialConstants = function(g,context,materialContext) 
 			}
 		}
 	}
-};
-iron_object_Uniforms.getSpot = function(index) {
-	var i = 0;
-	var _g = 0;
-	var _g1 = iron_Scene.active.lights;
-	while(_g < _g1.length) {
-		var l = _g1[_g];
-		++_g;
-		if(l.data.raw.type != "spot" && l.data.raw.type != "area") {
-			continue;
-		}
-		if(i == index) {
-			return l;
-		}
-		++i;
-	}
-	return null;
 };
 iron_object_Uniforms.currentMat = function(object) {
 	if(object != null && ((object) instanceof iron_object_MeshObject)) {
@@ -20983,11 +20997,6 @@ kha_Scheduler.start = function(restartTimers) {
 		restartTimers = false;
 	}
 	kha_Scheduler.vsync = kha_Window.get(0).get_vSynced();
-	var hz = kha_Display.get_primary().get_frequency();
-	if(hz >= 57 && hz <= 63) {
-		hz = 60;
-	}
-	kha_Scheduler.onedifhz = 1.0 / hz;
 	kha_Scheduler.stopped = false;
 	kha_Scheduler.resetTime();
 	kha_Scheduler.lastTime = kha_Scheduler.realTime() - kha_Scheduler.startTime;
@@ -21027,11 +21036,11 @@ kha_Scheduler.executeFrame = function() {
 				delta = kha_Scheduler.maxframetime;
 				frameEnd += delta;
 			} else if(kha_Scheduler.vsync) {
-				var frames = Math.round(delta / kha_Scheduler.onedifhz);
+				var frames = Math.round(delta / (1.0 / kha_Display.get_primary().get_frequency()));
 				if(frames < 1) {
 					return;
 				}
-				var realdif = frames * kha_Scheduler.onedifhz;
+				var realdif = frames * (1.0 / kha_Display.get_primary().get_frequency());
 				delta = realdif;
 				var _g = 0;
 				var _g1 = kha_Scheduler.DIF_COUNT - 2;
@@ -21834,7 +21843,7 @@ kha_SystemImpl.loadFinished = function(defaultWidth,defaultHeight) {
 		kha_SystemImpl.gl2 = true;
 		kha_Shaders.init();
 	} catch( _g ) {
-		haxe_Log.trace("Could not initialize WebGL 2, falling back to WebGL.",{ fileName : "kha/SystemImpl.hx", lineNumber : 376, className : "kha.SystemImpl", methodName : "loadFinished"});
+		haxe_Log.trace("Could not initialize WebGL 2, falling back to WebGL.",{ fileName : "kha/SystemImpl.hx", lineNumber : 378, className : "kha.SystemImpl", methodName : "loadFinished"});
 	}
 	if(!kha_SystemImpl.gl2) {
 		try {
@@ -21856,7 +21865,7 @@ kha_SystemImpl.loadFinished = function(defaultWidth,defaultHeight) {
 			gl = true;
 			kha_Shaders.init();
 		} catch( _g ) {
-			haxe_Log.trace("Could not initialize WebGL, falling back to <canvas>.",{ fileName : "kha/SystemImpl.hx", lineNumber : 404, className : "kha.SystemImpl", methodName : "loadFinished"});
+			haxe_Log.trace("Could not initialize WebGL, falling back to <canvas>.",{ fileName : "kha/SystemImpl.hx", lineNumber : 406, className : "kha.SystemImpl", methodName : "loadFinished"});
 		}
 	}
 	kha_SystemImpl.setCanvas(canvas);
@@ -21933,11 +21942,21 @@ kha_SystemImpl.initAnimate = function(callback) {
 	if(requestAnimationFrame == null) {
 		requestAnimationFrame = $window.msRequestAnimationFrame;
 	}
+	var isRefreshRateDetectionActive = false;
+	var lastTimestamp = 0.0;
+	var possibleRefreshRates = [30,60,75,90,120,144,240,340,360];
+	var _g = [];
+	var _g1 = 0;
+	var _g2 = possibleRefreshRates.length;
+	while(_g1 < _g2) {
+		var _ = _g1++;
+		_g.push(0);
+	}
+	var refreshRatesCounts = _g;
 	var animate = null;
 	animate = function(timestamp) {
-		var $window = window;
 		if(requestAnimationFrame == null) {
-			$window.setTimeout(animate,16.6666666666666679);
+			window.setTimeout(animate,16.6666666666666679);
 		} else {
 			requestAnimationFrame(animate);
 		}
@@ -21955,11 +21974,12 @@ kha_SystemImpl.initAnimate = function(callback) {
 		}
 		kha_Scheduler.executeFrame();
 		if(canvas.getContext != null) {
-			var displayWidth = canvas.clientWidth | 0;
-			var displayHeight = canvas.clientHeight | 0;
-			if(canvas.width != displayWidth || canvas.height != displayHeight) {
-				canvas.width = displayWidth;
-				canvas.height = displayHeight;
+			if(kha_SystemImpl.lastCanvasClientWidth != canvas.clientWidth || kha_SystemImpl.lastCanvasClientHeight != canvas.clientHeight) {
+				var scale = window.devicePixelRatio;
+				canvas.width = canvas.clientWidth * scale | 0;
+				canvas.height = canvas.clientHeight * scale | 0;
+				kha_SystemImpl.lastCanvasClientWidth = canvas.clientWidth;
+				kha_SystemImpl.lastCanvasClientHeight = canvas.clientHeight;
 			}
 			kha_System.render([kha_SystemImpl.frame]);
 			if(kha_SystemImpl.gl != null) {
@@ -21969,88 +21989,54 @@ kha_SystemImpl.initAnimate = function(callback) {
 				kha_SystemImpl.gl.colorMask(true,true,true,true);
 			}
 		}
-	};
-	var initialTimestamp = 0;
-	var prevTimestamp = 0;
-	var currentSamples = 0;
-	var timeDiffs = [];
-	var SAMPLE_COUNT = 90;
-	var MEAN_TRUNCATION_CUTOFF = 0.333333333333333315;
-	var roundToKnownRefreshRate = function(hz) {
-		var hz30 = { low : 27, high : 33, target : 30};
-		var hz60 = { low : 57, high : 63, target : 60};
-		var hz75 = { low : 72, high : 78, target : 75};
-		var hz90 = { low : 87, high : 93, target : 90};
-		var hz120 = { low : 117, high : 123, target : 120};
-		var hz144 = { low : 141, high : 147, target : 144};
-		var hz240 = { low : 237, high : 243, target : 240};
-		var hz340 = { low : 337, high : 343, target : 340};
-		var hz360 = { low : 357, high : 363, target : 360};
-		var rates = [hz30,hz60,hz75,hz90,hz120,hz144,hz240,hz340,hz360];
-		var nearestHz = hz;
-		var _g = 0;
-		while(_g < rates.length) {
-			var rate = rates[_g];
-			++_g;
-			if(hz >= rate.low && hz <= rate.high) {
-				nearestHz = rate.target;
-			}
+		if(!isRefreshRateDetectionActive) {
+			return;
 		}
-		return nearestHz;
-	};
-	var detectRefreshRate = null;
-	detectRefreshRate = function(timestamp) {
-		var $window = window;
-		if(initialTimestamp == 0) {
-			initialTimestamp = timestamp;
+		if(lastTimestamp == 0) {
+			lastTimestamp = timestamp;
+			return;
 		}
-		var timeDifferential = timestamp - prevTimestamp - initialTimestamp;
-		prevTimestamp = timestamp - initialTimestamp;
-		if(timeDifferential != 0) {
-			timeDiffs.push(timeDifferential);
+		var fps = Math.floor(1000 / (timestamp - lastTimestamp));
+		if(kha_SystemImpl.estimatedRefreshRate < fps) {
+			kha_SystemImpl.estimatedRefreshRate = fps;
 		}
-		if(currentSamples < SAMPLE_COUNT) {
-			currentSamples += 1;
-			if(requestAnimationFrame == null) {
-				$window.setTimeout(detectRefreshRate,16.6666666666666679);
-			} else {
-				requestAnimationFrame(detectRefreshRate);
+		lastTimestamp = timestamp;
+		var _g3_current = 0;
+		var _g3_array = possibleRefreshRates;
+		while(_g3_current < _g3_array.length) {
+			var _g4_value = _g3_array[_g3_current];
+			var _g4_key = _g3_current++;
+			var i = _g4_key;
+			var rate = _g4_value;
+			if(fps > rate - 3 && fps < rate + 3) {
+				refreshRatesCounts[i]++;
 			}
-		} else {
-			haxe_ds_ArraySort.sort(timeDiffs,function(a,b) {
-				return a - b;
-			});
-			var truncatedTimeDiffs = [];
-			var cutoff = Math.round(timeDiffs.length * MEAN_TRUNCATION_CUTOFF);
-			var _g = cutoff;
-			var _g1 = timeDiffs.length - cutoff;
-			while(_g < _g1) {
-				var i = _g++;
-				truncatedTimeDiffs.push(timeDiffs[i]);
-			}
-			var total = 0;
-			var _g = 0;
-			while(_g < truncatedTimeDiffs.length) {
-				var time = truncatedTimeDiffs[_g];
-				++_g;
-				total += time;
-			}
-			var avg = total / truncatedTimeDiffs.length;
-			kha_SystemImpl.estimatedRefreshRate = roundToKnownRefreshRate(Math.round(1000 / avg));
-			kha_Scheduler.start();
-			if(requestAnimationFrame == null) {
-				$window.setTimeout(animate,16.6666666666666679);
-			} else {
-				requestAnimationFrame(animate);
-			}
-			callback(kha_SystemImpl.window);
 		}
 	};
-	if(requestAnimationFrame == null) {
-		$window.setTimeout(detectRefreshRate,16.6666666666666679);
-	} else {
-		requestAnimationFrame(detectRefreshRate);
-	}
+	window.setTimeout(function() {
+		isRefreshRateDetectionActive = true;
+		return window.setTimeout(function() {
+			isRefreshRateDetectionActive = false;
+			var index = possibleRefreshRates.indexOf(60);
+			var max = 0;
+			var _g3_current = 0;
+			var _g3_array = refreshRatesCounts;
+			while(_g3_current < _g3_array.length) {
+				var _g4_value = _g3_array[_g3_current];
+				var _g4_key = _g3_current++;
+				var i = _g4_key;
+				var count = _g4_value;
+				if(count > max) {
+					max = count;
+					index = i;
+				}
+			}
+			return kha_SystemImpl.estimatedRefreshRate = possibleRefreshRates[index];
+		},1000);
+	},500);
+	kha_Scheduler.start();
+	requestAnimationFrame(animate);
+	callback(kha_SystemImpl.window);
 };
 kha_SystemImpl.lockMouse = function() {
 	if(($_=kha_SystemImpl.khanvas,$bind($_,$_.requestPointerLock))) {
@@ -22125,7 +22111,7 @@ kha_SystemImpl.unlockSound = function() {
 			context.resume().then(function(c) {
 				kha_SystemImpl.soundEnabled = true;
 			}).catch(function(err) {
-				haxe_Log.trace(err,{ fileName : "kha/SystemImpl.hx", lineNumber : 738, className : "kha.SystemImpl", methodName : "unlockSound"});
+				haxe_Log.trace(err,{ fileName : "kha/SystemImpl.hx", lineNumber : 685, className : "kha.SystemImpl", methodName : "unlockSound"});
 			});
 		}
 		kha_audio2_Audio.wakeChannels();
@@ -22175,11 +22161,7 @@ kha_SystemImpl.mouseDown = function(event) {
 	kha_SystemImpl.setMouseXY(event);
 	if(event.which == 1) {
 		kha_SystemImpl.mouse.sendDownEvent(0,0,kha_SystemImpl.mouseX,kha_SystemImpl.mouseY);
-		if(kha_SystemImpl.khanvas.setCapture != null) {
-			kha_SystemImpl.khanvas.setCapture();
-		} else {
-			kha_SystemImpl.khanvas.ownerDocument.addEventListener("mousemove",kha_SystemImpl.documentMouseMove,true);
-		}
+		kha_SystemImpl.khanvas.ownerDocument.addEventListener("mousemove",kha_SystemImpl.documentMouseMove,true);
 		kha_SystemImpl.khanvas.ownerDocument.addEventListener("mouseup",kha_SystemImpl.mouseLeftUp);
 	} else if(event.which == 2) {
 		kha_SystemImpl.mouse.sendDownEvent(0,2,kha_SystemImpl.mouseX,kha_SystemImpl.mouseY);
@@ -22203,11 +22185,7 @@ kha_SystemImpl.mouseLeftUp = function(event) {
 	}
 	kha_SystemImpl.insideInputEvent = true;
 	kha_SystemImpl.khanvas.ownerDocument.removeEventListener("mouseup",kha_SystemImpl.mouseLeftUp);
-	if(kha_SystemImpl.khanvas.releaseCapture != null) {
-		kha_SystemImpl.khanvas.ownerDocument.releaseCapture();
-	} else {
-		kha_SystemImpl.khanvas.ownerDocument.removeEventListener("mousemove",kha_SystemImpl.documentMouseMove,true);
-	}
+	kha_SystemImpl.khanvas.ownerDocument.removeEventListener("mousemove",kha_SystemImpl.documentMouseMove,true);
 	kha_SystemImpl.mouse.sendUpEvent(0,0,kha_SystemImpl.mouseX,kha_SystemImpl.mouseY);
 	kha_SystemImpl.insideInputEvent = false;
 };
@@ -22852,7 +22830,7 @@ var kha_Window = function(num,defaultWidth,defaultHeight,canvas) {
 			}
 		}
 		if(isResize) {
-			_gthis.resize(canvas.clientWidth,canvas.clientHeight);
+			_gthis.resize(canvas.width,canvas.height);
 		}
 	});
 	observer.observe(canvas,{ attributes : true});
@@ -31335,6 +31313,8 @@ kha_SystemImpl.estimatedRefreshRate = 60;
 kha_SystemImpl.minimumScroll = 999;
 kha_SystemImpl.lastFirstTouchX = 0;
 kha_SystemImpl.lastFirstTouchY = 0;
+kha_SystemImpl.lastCanvasClientWidth = -1;
+kha_SystemImpl.lastCanvasClientHeight = -1;
 kha_SystemImpl.iosSoundEnabled = false;
 kha_SystemImpl.soundEnabled = false;
 kha_SystemImpl.iosTouchs = [];
