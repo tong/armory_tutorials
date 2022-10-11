@@ -336,14 +336,14 @@ arm_node_FireTree.__name__ = true;
 arm_node_FireTree.__super__ = armory_logicnode_LogicTree;
 arm_node_FireTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 	add: function() {
-		var _RemoveObject = new armory_logicnode_RemoveObjectNode(this);
-		_RemoveObject.inputs.length = 2;
-		_RemoveObject.outputs.length = 1;
+		var _RemoveObject_001 = new armory_logicnode_RemoveObjectNode(this);
+		_RemoveObject_001.inputs.length = 4;
+		_RemoveObject_001.outputs.length = 1;
 		var _g = 0;
-		var _g1 = _RemoveObject.outputs.length;
+		var _g1 = _RemoveObject_001.outputs.length;
 		while(_g < _g1) {
 			var i = _g++;
-			_RemoveObject.outputs[i] = [];
+			_RemoveObject_001.outputs[i] = [];
 		}
 		var _Sleep = new armory_logicnode_SleepNode(this);
 		_Sleep.inputs.length = 2;
@@ -428,7 +428,7 @@ arm_node_FireTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 		armory_logicnode_LogicNode.addLink(_ArrayAdd_001,new armory_logicnode_NullNode(this),1,0);
 		armory_logicnode_LogicNode.addLink(_ArrayAdd_001,_Sleep,0,0);
 		armory_logicnode_LogicNode.addLink(new armory_logicnode_FloatNode(this,2.0),_Sleep,0,1);
-		armory_logicnode_LogicNode.addLink(_Sleep,_RemoveObject,0,0);
+		armory_logicnode_LogicNode.addLink(_Sleep,_RemoveObject_001,0,0);
 		var _ArrayShift_001 = new armory_logicnode_ArrayShiftNode(this);
 		_ArrayShift_001.inputs.length = 1;
 		_ArrayShift_001.outputs.length = 1;
@@ -439,8 +439,10 @@ arm_node_FireTree.prototype = $extend(armory_logicnode_LogicTree.prototype,{
 			_ArrayShift_001.outputs[i] = [];
 		}
 		armory_logicnode_LogicNode.addLink(_ArrayObject_001,_ArrayShift_001,0,0);
-		armory_logicnode_LogicNode.addLink(_ArrayShift_001,_RemoveObject,0,1);
-		armory_logicnode_LogicNode.addLink(_RemoveObject,new armory_logicnode_NullNode(this),0,0);
+		armory_logicnode_LogicNode.addLink(_ArrayShift_001,_RemoveObject_001,0,1);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_RemoveObject_001,0,2);
+		armory_logicnode_LogicNode.addLink(new armory_logicnode_BooleanNode(this,true),_RemoveObject_001,0,3);
+		armory_logicnode_LogicNode.addLink(_RemoveObject_001,new armory_logicnode_NullNode(this),0,0);
 	}
 	,__class__: arm_node_FireTree
 });
@@ -1766,8 +1768,25 @@ armory_logicnode_RemoveObjectNode.prototype = $extend(armory_logicnode_LogicNode
 	run: function(from) {
 		var _this = this.inputs[1];
 		var object = _this.fromNode.get(_this.fromIndex);
+		var _this = this.inputs[2];
+		var removeChildren = _this.fromNode.get(_this.fromIndex);
+		var _this = this.inputs[3];
+		var keepChildrenTransforms = _this.fromNode.get(_this.fromIndex);
 		if(object == null) {
 			return;
+		}
+		if(removeChildren == false) {
+			var _g = 0;
+			var _g1 = object.children.slice();
+			while(_g < _g1.length) {
+				var c = _g1[_g];
+				++_g;
+				c.setParent(iron_Scene.active.root,false,keepChildrenTransforms);
+				var rigidBody = c.getTrait(armory_trait_physics_bullet_RigidBody);
+				if(rigidBody != null) {
+					rigidBody.syncTransform();
+				}
+			}
 		}
 		object.remove();
 		this.runOutput(0);
@@ -3429,7 +3448,7 @@ armory_trait_internal_LoadingScreen.render = function(g,assetsLoaded,assetsTotal
 var armory_trait_internal_UniformsManager = function() {
 	this.uniformExists = false;
 	iron_Trait.call(this);
-	this.notifyOnInit($bind(this,this.init));
+	this.notifyOnAdd($bind(this,this.init));
 	this.notifyOnRemove($bind(this,this.removeObject));
 	if(!armory_trait_internal_UniformsManager.sceneRemoveInitalized) {
 		iron_Scene.active.notifyOnRemove(armory_trait_internal_UniformsManager.removeScene);
