@@ -2379,7 +2379,7 @@ var armory_trait_internal_CanvasScript = function(canvasName,font) {
 	if(font == null) {
 		font = "font_default.ttf";
 	}
-	this.onReady = null;
+	this.onReadyFuncs = null;
 	this.canvas = null;
 	var _gthis = this;
 	iron_Trait.call(this);
@@ -2389,7 +2389,7 @@ var armory_trait_internal_CanvasScript = function(canvasName,font) {
 			if(tBlob.get_length() != 0) {
 				armory_ui_Canvas.themes = JSON.parse(tBlob.toString());
 			} else {
-				haxe_Log.trace("\"_themes.json\" is empty! Using default theme instead.",{ fileName : "Sources/armory/trait/internal/CanvasScript.hx", lineNumber : 36, className : "armory.trait.internal.CanvasScript", methodName : "new"});
+				haxe_Log.trace("\"_themes.json\" is empty! Using default theme instead.",{ fileName : "Sources/armory/trait/internal/CanvasScript.hx", lineNumber : 39, className : "armory.trait.internal.CanvasScript", methodName : "new"});
 			}
 			if(armory_ui_Canvas.themes.length == 0) {
 				armory_ui_Canvas.themes.push(armory_ui_Themes.light);
@@ -2455,21 +2455,37 @@ var armory_trait_internal_CanvasScript = function(canvasName,font) {
 				}
 			}
 		}
-		if(_gthis.onReady != null) {
-			_gthis.onReady();
-			_gthis.onReady = null;
+		if(_gthis.onReadyFuncs != null) {
+			var _g = 0;
+			var _g1 = _gthis.onReadyFuncs;
+			while(_g < _g1.length) {
+				var f = _g1[_g];
+				++_g;
+				f();
+			}
+			_gthis.onReadyFuncs.length = 0;
 		}
 	});
 };
 $hxClasses["armory.trait.internal.CanvasScript"] = armory_trait_internal_CanvasScript;
 armory_trait_internal_CanvasScript.__name__ = true;
+armory_trait_internal_CanvasScript.getActiveCanvas = function() {
+	var activeCanvas = iron_Scene.active.getTrait(armory_trait_internal_CanvasScript);
+	if(activeCanvas == null) {
+		activeCanvas = iron_Scene.active.camera.getTrait(armory_trait_internal_CanvasScript);
+	}
+	return activeCanvas;
+};
 armory_trait_internal_CanvasScript.__super__ = iron_Trait;
 armory_trait_internal_CanvasScript.prototype = $extend(iron_Trait.prototype,{
 	get_ready: function() {
 		return this.canvas != null;
 	}
 	,notifyOnReady: function(f) {
-		this.onReady = f;
+		if(this.onReadyFuncs == null) {
+			this.onReadyFuncs = [];
+		}
+		this.onReadyFuncs.push(f);
 	}
 	,getElement: function(name) {
 		var _g = 0;
@@ -2515,6 +2531,13 @@ armory_trait_internal_CanvasScript.prototype = $extend(iron_Trait.prototype,{
 	,getCanvasFontSize: function() {
 		return this.cui.t.FONT_SIZE;
 	}
+	,setCanvasInputTextFocus: function(e,focus) {
+		if(focus == true) {
+			this.cui.startTextEdit(e);
+		} else {
+			this.cui.deselectText();
+		}
+	}
 	,getHandle: function(name) {
 		var this1 = armory_ui_Canvas.h.children;
 		var key = this.getElement(name).id;
@@ -2533,7 +2556,7 @@ armory_trait_internal_LoadingScreen.render = function(g,assetsLoaded,assetsTotal
 var armory_trait_internal_UniformsManager = function() {
 	this.uniformExists = false;
 	iron_Trait.call(this);
-	this.notifyOnInit($bind(this,this.init));
+	this.notifyOnAdd($bind(this,this.init));
 	this.notifyOnRemove($bind(this,this.removeObject));
 	if(!armory_trait_internal_UniformsManager.sceneRemoveInitalized) {
 		iron_Scene.active.notifyOnRemove(armory_trait_internal_UniformsManager.removeScene);
@@ -4738,13 +4761,15 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 	}
 	switch(element.type) {
 	case 0:
-		var size = ui.fontSize;
+		var prevFontSize = ui.fontSize;
+		var prevTEXT_COL = ui.t.TEXT_COL;
 		ui.fontSize = element.height * armory_ui_Canvas._ui.ops.scaleFactor | 0;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
 		ui.text(element.text,element.alignment);
-		ui.fontSize = size;
+		ui.fontSize = prevFontSize;
+		ui.t.TEXT_COL = prevTEXT_COL;
 		break;
 	case 1:
 		var image = armory_ui_Canvas.getAsset(canvas,element.asset);
@@ -4761,8 +4786,12 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		}
 		break;
 	case 2:
-		var eh = ui.t.ELEMENT_H;
-		var bh = ui.t.BUTTON_H;
+		var prevELEMENT_H = ui.t.ELEMENT_H;
+		var prevBUTTON_H = ui.t.BUTTON_H;
+		var prevBUTTON_COL = ui.t.BUTTON_COL;
+		var prevBUTTON_TEXT_COL = ui.t.BUTTON_TEXT_COL;
+		var prevBUTTON_HOVER_COL = ui.t.BUTTON_HOVER_COL;
+		var prevBUTTON_PRESSED_COL = ui.t.BUTTON_PRESSED_COL;
 		ui.t.ELEMENT_H = element.height;
 		ui.t.BUTTON_H = element.height;
 		var color = element.color;
@@ -4783,12 +4812,19 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 				armory_ui_Canvas.events.push(e);
 			}
 		}
-		ui.t.ELEMENT_H = eh;
-		ui.t.BUTTON_H = bh;
+		ui.t.ELEMENT_H = prevELEMENT_H;
+		ui.t.BUTTON_H = prevBUTTON_H;
+		ui.t.BUTTON_COL = prevBUTTON_COL;
+		ui.t.BUTTON_TEXT_COL = prevBUTTON_TEXT_COL;
+		ui.t.BUTTON_HOVER_COL = prevBUTTON_HOVER_COL;
+		ui.t.BUTTON_PRESSED_COL = prevBUTTON_PRESSED_COL;
 		break;
 	case 3:
 		break;
 	case 6:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4799,8 +4835,14 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).BUTTON_HOVER_COL;
 		ui.t.ACCENT_HOVER_COL = color != null ? color : defaultColor;
 		ui.check(armory_ui_Canvas.h.nest(element.id),element.text);
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 7:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4811,8 +4853,16 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).BUTTON_HOVER_COL;
 		ui.t.ACCENT_HOVER_COL = color != null ? color : defaultColor;
 		zui_Ext.inlineRadio(ui,armory_ui_Canvas.h.nest(element.id),element.text.split(";"));
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 8:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevLABEL_COL = ui.t.LABEL_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevSEPARATOR_COL = ui.t.SEPARATOR_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4829,8 +4879,17 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).BUTTON_HOVER_COL;
 		ui.t.ACCENT_HOVER_COL = color != null ? color : defaultColor;
 		ui.combo(armory_ui_Canvas.h.nest(element.id),element.text.split(";"));
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.LABEL_COL = prevLABEL_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.SEPARATOR_COL = prevSEPARATOR_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 9:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevLABEL_COL = ui.t.LABEL_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4844,8 +4903,16 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).BUTTON_HOVER_COL;
 		ui.t.ACCENT_HOVER_COL = color != null ? color : defaultColor;
 		ui.slider(armory_ui_Canvas.h.nest(element.id),element.text,0.0,1.0,true,100,true,element.alignment);
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.LABEL_COL = prevLABEL_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 10:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevLABEL_COL = ui.t.LABEL_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4865,8 +4932,16 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 				armory_ui_Canvas.events.push(e);
 			}
 		}
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.LABEL_COL = prevLABEL_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 11:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevLABEL_COL = ui.t.LABEL_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4880,6 +4955,10 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).BUTTON_HOVER_COL;
 		ui.t.ACCENT_HOVER_COL = color != null ? color : defaultColor;
 		armory_ui_Ext.keyInput(ui,armory_ui_Canvas.h.nest(element.id),element.text);
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.LABEL_COL = prevLABEL_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	case 12:
 		var col = ui.g.get_color();
@@ -4970,6 +5049,10 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 		ui.g.set_color(col);
 		break;
 	case 20:
+		var prevTEXT_COL = ui.t.TEXT_COL;
+		var prevLABEL_COL = ui.t.LABEL_COL;
+		var prevACCENT_COL = ui.t.ACCENT_COL;
+		var prevACCENT_HOVER_COL = ui.t.ACCENT_HOVER_COL;
 		var color = element.color_text;
 		var defaultColor = armory_ui_Canvas.getTheme(canvas.theme).TEXT_COL;
 		ui.t.TEXT_COL = color != null ? color : defaultColor;
@@ -4990,6 +5073,10 @@ armory_ui_Canvas.drawElement = function(ui,canvas,element,px,py) {
 				armory_ui_Canvas.events.push(e);
 			}
 		}
+		ui.t.TEXT_COL = prevTEXT_COL;
+		ui.t.LABEL_COL = prevLABEL_COL;
+		ui.t.ACCENT_COL = prevACCENT_COL;
+		ui.t.ACCENT_HOVER_COL = prevACCENT_HOVER_COL;
 		break;
 	}
 	ui.ops.font = font;
@@ -7717,6 +7804,13 @@ iron_Scene.prototype = {
 	}
 	,getChild: function(name) {
 		return this.root.getChild(name);
+	}
+	,getTrait: function(c) {
+		if(this.root.children.length > 0) {
+			return this.root.children[0].getTrait(c);
+		} else {
+			return null;
+		}
 	}
 	,getCamera: function(name) {
 		var _g = 0;
