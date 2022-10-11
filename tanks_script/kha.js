@@ -1728,7 +1728,7 @@ armory_trait_internal_LoadingScreen.render = function(g,assetsLoaded,assetsTotal
 var armory_trait_internal_UniformsManager = function() {
 	this.uniformExists = false;
 	iron_Trait.call(this);
-	this.notifyOnInit($bind(this,this.init));
+	this.notifyOnAdd($bind(this,this.init));
 	this.notifyOnRemove($bind(this,this.removeObject));
 	if(!armory_trait_internal_UniformsManager.sceneRemoveInitalized) {
 		iron_Scene.active.notifyOnRemove(armory_trait_internal_UniformsManager.removeScene);
